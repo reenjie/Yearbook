@@ -70,7 +70,17 @@
 
 
                     <div class="col-md-6">
-                        <span style="font-size:14px">Section</span>
+                      <span style="font-size:14px">Section</span>
+                      @if(Auth::user()->Role == 1)
+                      @foreach ($section as $s)
+                      @if($s->id == Auth::user()->SectionID)
+                      <input type="hidden" readonly name="section" value="{{$s->id}}" >
+                      <h6>{{$s->Name}}</h6>
+                      @endif
+                    @endforeach
+                      
+                      @else 
+                    
                       <select name="section" class="form-control mb-2" required id="">
                         <option value="">Select Section</option>
                         @foreach ($section as $s)
@@ -78,6 +88,8 @@
                                     @endforeach
                      
                       </select>
+                      @endif
+                     
                     </div>
 
                     

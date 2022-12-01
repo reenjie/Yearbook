@@ -6,7 +6,7 @@ use App\Models\Batch;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Facades\Auth;
 class Book extends Controller
 {
     public function index(){
@@ -52,6 +52,7 @@ class Book extends Controller
             'SectionID'=>$section,
             'BatchID'=>$batch,
             'photo'=>$imageName,
+            'download'=>3,
            ]);
 
 
@@ -70,6 +71,7 @@ class Book extends Controller
 
     public function fetchstudent(Request $request){
         $searchquery = $request->search;
+        
         $section = Section::all();
         $batch = Batch::all();
 
@@ -78,8 +80,10 @@ class Book extends Controller
             if(!empty($searchquery['value']) && !empty($searchquery['batch']) && !empty($searchquery['section']) ){
                 
                 //search for all
+                
+             
 
-                $data =  DB::select("SELECT * FROM `students` WHERE Firstname like '%".$searchquery['value']."%' or Middlename like '%".$searchquery['value']."%' or Lastname like '%".$searchquery['value']."%' and SectionID like '%".$searchquery['section']."%'  and BatchID like '%".$searchquery['batch']."%'  ");
+                $data =  DB::select("SELECT * FROM `students` WHERE SectionID  = '".$searchquery['section']."'  and BatchID ='".$searchquery['batch']."' and  Firstname like '%".$searchquery['value']."%' or Middlename like '%".$searchquery['value']."%' or Lastname like '%".$searchquery['value']."%'  ");
 
 
             }else 
@@ -91,6 +95,8 @@ class Book extends Controller
             }else if(empty($searchquery['value']) && empty($searchquery['batch']) && !empty($searchquery['section'])){
                 //search for section
 
+           
+
                 $data =  DB::select("SELECT * FROM `students` WHERE  SectionID ='".$searchquery['section']."'  ");
              
             }else if (!empty($searchquery['value']) && empty($searchquery['batch']) && empty($searchquery['section'])){
@@ -101,17 +107,26 @@ class Book extends Controller
                
             }else if (empty($searchquery['value']) && !empty($searchquery['batch']) && !empty($searchquery['section'])){
                 //search for batch & section 
-
+           
                 $data =  DB::select("SELECT * FROM `students` WHERE  SectionID like '%".$searchquery['section']."%'  and BatchID like '%".$searchquery['batch']."%'  ");
                 
             }else if (!empty($searchquery['value']) && !empty($searchquery['batch']) && empty($searchquery['section'])){
 
                 //search for value and batch
-                $data =  DB::select("SELECT * FROM `students` WHERE Firstname like '%".$searchquery['value']."%' or Middlename like '%".$searchquery['value']."%' or Lastname like '%".$searchquery['value']."%' and BatchID like '%".$searchquery['batch']."%'  ");
+
+                if(Auth::user()->Role==1){
+                    $sectionid = Auth::user()->SectionID;
+                    $data =  DB::select("SELECT * FROM `students` WHERE BatchID = '".$searchquery['batch']."' and SectionID = '".$sectionid."' and  Firstname like '%".$searchquery['value']."%' or Middlename like '%".$searchquery['value']."%' or Lastname like '%".$searchquery['value']."%'  ");
+                }else {
+                    $data =  DB::select("SELECT * FROM `students` WHERE BatchID = '".$searchquery['batch']."' and  Firstname like '%".$searchquery['value']."%' or Middlename like '%".$searchquery['value']."%' or Lastname like '%".$searchquery['value']."%'  ");
+                }
+           
 
               
             }else if (!empty($searchquery['value']) && empty($searchquery['batch']) && !empty($searchquery['section'])){
                 //search for value and section 
+
+                
 
                 $data =  DB::select("SELECT * FROM `students` WHERE Firstname like '%".$searchquery['value']."%' or Middlename like '%".$searchquery['value']."%' or Lastname like '%".$searchquery['value']."%' and SectionID like '%".$searchquery['section']."%'   ");
               
@@ -123,7 +138,14 @@ class Book extends Controller
            
   
         }else {
-            $data =  Student::all();
+            if(Auth::user()->Role == 1){
+                $sectionID = Auth::user()->SectionID;
+
+                $data =  Student::where('SectionID',$sectionID)->get();
+            }else {
+                $data =  Student::all();
+            }   
+          
         }
 
           
@@ -245,6 +267,11 @@ class Book extends Controller
                             <div class="card-body">
                             <h6>Current Status</h6>
                                 <div class="row">
+                                    <?php
+                                        if(!Auth::user()->Role==1){
+
+                                      
+                                            ?>
                                     <div class="col-md-6">
                                     <span style="font-size:10px">
                                 SECTION :
@@ -261,6 +288,11 @@ class Book extends Controller
                    
                         </span>
                                     </div>
+
+                                            <?php
+                                        }
+                                    ?>
+                                 
                                     <div class="col-md-6">
                                     <span style="font-size:10px">
                                 BATCH :
@@ -287,9 +319,12 @@ class Book extends Controller
                         </div>
                     </div>
 
-                    <div class="col-md-6">
                   
-                        <span style="font-size:14px">Section</span>
+                        <?php
+                            if(!Auth::user()->Role==1){
+                                ?>  
+                                  <div class="col-md-6">
+                       <span style="font-size:14px">Section</span>
                       <select value="<?php echo $row->SectionID?>" name="section" class="form-control mb-2"  id="">
                         <option value="">Select Section</option>
                       
@@ -299,7 +334,16 @@ class Book extends Controller
                         }
                      ?>
                       </select>
-                    </div>
+                      </div>
+                                <?php
+                            }else {
+                                ?>
+                        <input type="hidden" name="section" value="<?php echo Auth::user()->SectionID?>">
+                                <?php
+                            }
+                        ?>
+                      
+                   
 
                     
 
@@ -452,6 +496,7 @@ class Book extends Controller
                     'Address'=>$address,
                     'Honors'=>$honors,
                     'photo'=>$imageName,
+                    
                 ]);
                 
 
@@ -468,6 +513,7 @@ class Book extends Controller
                     'Honors'=>$honors,
                     'SectionID'=>$section,
                     'photo'=>$imageName,
+                    
                 ]);
                 
             }else if ($section == '' && $batch != ''){

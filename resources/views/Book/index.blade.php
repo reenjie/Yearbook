@@ -122,6 +122,8 @@
                   section:section,
                 }
                 fetchdata(search);
+
+              
             })
 
             $('#searchvalue').keyup(function(){
@@ -134,6 +136,7 @@
                   section:section,
                 }
                 fetchdata(search);
+               
             })
 
             fetchdata('');

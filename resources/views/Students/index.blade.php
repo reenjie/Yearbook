@@ -14,7 +14,72 @@
 
     <div class="card">
         <div class="card-body">
-            Download
+          <div class="table-responsive">
+            <table class="table" style="color:gray">
+              <thead class=" text-primary">
+                <th>
+                  Name
+                </th>
+                <th>
+                 Sex
+                </th>
+                <th>
+               Batch & Section
+                </th>
+                <th>
+                 Registered Date
+                 </th>
+                <th class="text-center">
+               Downloads
+                </th>
+              </thead>
+              <tbody>
+                @foreach ($data as $item)
+                <tr>
+                  <td class="text-center" style="font-weight: bold;text-transform:uppercase">
+                {{ $item->Firstname.' '.$item->Middlename.' '.$item->Lastname}}
+                  </td>
+                  <td class="text-center">
+                 {{$item->Sex}}
+                  </td>
+                  <td  class="text-center">
+                    <span style="font-size:11px">
+                      BATCH :
+                      <span style="font-size:14px">
+                        @foreach ($batch as $b)
+                        @if($b->id == $item->BatchID)
+                    <span style="color:rgb(86, 145, 194)"> {{$b->Name}}</span>
+                       @endif
+                    @endforeach
+                      </span>
+                      </span>
+                      <br>
+                    <span style="font-size:11px">
+                    SECTION :
+                    <span style="font-size:14px">
+                      @foreach ($section as $sec)
+                      @if($sec->id == $item->SectionID)
+                  <span style="color:rgb(86, 145, 194)"> {{$sec->Name}}</span>
+                     @endif
+                  @endforeach
+                    </span>
+                    </span>
+                   
+                
+                  </td>
+                  <td class="text-center">
+                    {{date('@h:m a Fj,Y',strtotime($item->created_at))}}
+                  </td>
+                  <td class="text-center">
+                    {{3 - $item->download}}
+                  </td>
+                </tr>
+                @endforeach
+             
+            
+              </tbody>
+            </table>
+          </div>
         </div>
     </div>
     </div>

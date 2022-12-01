@@ -26,6 +26,7 @@ return new class extends Migration
             $table->integer('SectionID');
             $table->integer('BatchID');
             $table->text('photo');
+            $table->integer('download');
             $table->timestamps();
         });
     }

@@ -21,5 +21,6 @@ class Student extends Model
         'SectionID',
         'BatchID',
         'photo',
+        'download',
     ];
 }
