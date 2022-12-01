@@ -22,12 +22,13 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
-    {
-        if(Auth::user()->Role == 0){
-            return view('home');
-        }else {
-            return view('/');
-        }
+    {   
+        return view('home');
+        // if(Auth::user()->Role == 0){
+           
+        // }else {
+        //     return view('/');
+        // }
         
        
     }

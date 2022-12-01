@@ -14,8 +14,13 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header">
+            @if(Auth::user()->Role==1)
+
+            @else 
             <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i> Add</button>
 
+            @endif
+           
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -75,10 +80,12 @@
                   <th>
                    Created Date
                   </th>
-               
+                  @if(Auth::user()->Role==1)
+                  @else
                   <th class="text-center">
                   Action
                   </th>
+                  @endif
                 </thead>
                 <tbody>
                   @foreach ($data as $item)
@@ -95,13 +102,16 @@
                     <td  class="text-center">
                     {{date('@h:m a Fj,Y',strtotime($item->created_at))}}
                     </td>
-                
+
+                    @if(Auth::user()->Role==1)
+                    @else
                     <td class="text-center">
                   <div class="btn-group">
                    @include('Batch.Editmodal')
                     <button onclick="Delete({{$item->id}})"  class="btn btn-link text-danger btn-sm"><i class="fas fa-trash"></i></button>
                   </div>
                     </td>
+                    @endif
                   </tr>
                   @endforeach
                

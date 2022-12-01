@@ -17,8 +17,8 @@ class UsersTableSeeder extends Seeder
         DB::table('users')->insert([
             'Firstname'=>'Admin',
             'Middlename'=>'SuperAdmin',
-            'Lastname' => '',
-            'Sex' =>'undefined',
+            'Lastname' => 'Admin',
+            'Sex' =>'Male',
             'Role'=>0,
             'SectionID'=>0,
             'BatchID'=>0,

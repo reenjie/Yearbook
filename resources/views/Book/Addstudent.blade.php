@@ -28,6 +28,12 @@
                 <h6>Personal Information</h6>
               
                 <div class="row">
+                <div class="col-md-6">
+                        
+                        <span style="font-size:14px">Student ID</span>
+                              <input required name='studentid' type="text" value="" class="mb-2 form-control">
+                        </div>
+                        <div class="col-md-6"></div>
                     <div class="col-md-4">
                         <span style="font-size:14px">First Name</span>
                         <input required name='firstname' type="text" class="form-control">

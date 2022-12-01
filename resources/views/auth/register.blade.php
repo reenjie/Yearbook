@@ -1,79 +1,181 @@
 @extends('layouts.app', [
     'namePage' => 'Register page',
     'activePage' => 'register',
-    'backgroundImage' => asset('assets') . "/img/bg16.jpg",
+    'backgroundImage' => "https://media.istockphoto.com/id/968383368/photo/congratulated.jpg?s=612x612&w=0&k=20&c=cn6bbtt614Ic-txbOghdvmFg0X5WEGXwsz85z3IyUws=",
 ])
 
 @section('content')
   <div class="content">
     <div class="container">
       <div class="row">
-        <div class="col-md-5 ml-auto">
-          <div class="info-area info-horizontal mt-5">
-            <div class="icon icon-primary">
-              <i class="now-ui-icons media-2_sound-wave"></i>
-            </div>
-            <div class="description">
-              <h5 class="info-title">{{ __('Marketing') }}</h5>
-              <p class="description">
-                {{ __("We've created the marketing campaign of the website. It was a very interesting collaboration.") }}
-              </p>
-            </div>
-          </div>
-          <div class="info-area info-horizontal">
-            <div class="icon icon-primary">
-              <i class="now-ui-icons media-1_button-pause"></i>
-            </div>
-            <div class="description">
-              <h5 class="info-title">{{ __('Fully Coded in HTML5') }}</h5>
-              <p class="description">
-                {{ __("We've developed the website with HTML5 and CSS3. The client has access to the code using GitHub.") }}
-              </p>
-            </div>
-          </div>
-          <div class="info-area info-horizontal">
-            <div class="icon icon-info">
-              <i class="now-ui-icons users_single-02"></i>
-            </div>
-            <div class="description">
-              <h5 class="info-title">{{ __('Built Audience') }}</h5>
-              <p class="description">
-                {{ __('There is also a Fully Customizable CMS Admin Dashboard for this product.') }}
-              </p>
-            </div>
-          </div>
+        <div class="col-md-5 ml-auto text-light" >
+         <img src="{{asset('assets/img/sidebgreg.png')}}" style="width:100%" alt="">
+         <br>
+         <h5>
+         A Journey Worth Remembering!
+         </h5>
+         <h6>
+         Treasure your High School Memories!!!
+         </h6>
         </div>
-        <div class="col-md-4 mr-auto">
+        <!--  -->
+        <div class="col-md-7 mr-auto">
           <div class="card card-signup text-center">
             <div class="card-header ">
               <h4 class="card-title">{{ __('Register') }}</h4>
-              <div class="social">
-                <button class="btn btn-icon btn-round btn-twitter">
-                  <i class="fab fa-twitter"></i>
-                </button>
-                <button class="btn btn-icon btn-round btn-dribbble">
-                  <i class="fab fa-dribbble"></i>
-                </button>
-                <button class="btn btn-icon btn-round btn-facebook">
-                  <i class="fab fa-facebook-f"></i>
-                </button>
-                <h5 class="card-description">  {{ __('or be classical') }}</h5>
-              </div>
+             
             </div>
             <div class="card-body ">
+              @if(session()->has('error'))
+            <div class="alert alert-danger">
+              {{session()->get('error')}}
+            </div>
+              @endif
               <form method="POST" action="{{ route('register') }}">
                 @csrf
                 <!--Begin input name -->
-                <div class="input-group {{ $errors->has('name') ? ' has-danger' : '' }}">
+
+                <div class="row">
+                <div class="col-md-12">
+                <div class="input-group {{ $errors->has('StudentID') ? ' has-danger' : '' }}">
                   <div class="input-group-prepend">
                     <div class="input-group-text">
                       <i class="now-ui-icons users_circle-08"></i>
                     </div>
                   </div>
-                  <input class="form-control {{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Name') }}" type="text" name="name" value="{{ old('name') }}" required autofocus>
-                  @if ($errors->has('name'))
+                  <input class="form-control {{ $errors->has('StudentID') ? ' is-invalid' : '' }}" placeholder="{{ __('Student ID') }}" type="text" name="StudentID" value="{{ old('StudentID') }}" required autofocus>
+                  @if ($errors->has('StudentID'))
                     <span class="invalid-feedback" style="display: block;" role="alert">
-                      <strong>{{ $errors->first('name') }}</strong>
+                      <strong>{{ $errors->first('StudentID') }}</strong>
+                    </span>
+                  @endif
+                </div>
+
+                        </div>
+                      
+                  <div class="col-md-4">
+                  <div class="input-group {{ $errors->has('Firstname') ? ' has-danger' : '' }}">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <i class="now-ui-icons users_circle-08"></i>
+                    </div>
+                  </div>
+                  <input class="form-control {{ $errors->has('Firstname') ? ' is-invalid' : '' }}" placeholder="{{ __('First Name') }}" type="text" name="Firstname" value="{{ old('Firstname') }}" required autofocus>
+                  @if ($errors->has('Firstname'))
+                    <span class="invalid-feedback" style="display: block;" role="alert">
+                      <strong>{{ $errors->first('Firstname') }}</strong>
+                    </span>
+                  @endif
+                </div>
+                  </div>
+                  <div class="col-md-4">
+  
+                  <div class="input-group {{ $errors->has('Middlename') ? ' has-danger' : '' }}">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <i class="now-ui-icons users_circle-08"></i>
+                    </div>
+                  </div>
+                  <input class="form-control {{ $errors->has('Middlename') ? ' is-invalid' : '' }}" placeholder="{{ __('Middlename') }}" type="text" name="Middlename" value="{{ old('Middlename') }}" required autofocus>
+                  @if ($errors->has('Middlename'))
+                    <span class="invalid-feedback" style="display: block;" role="alert">
+                      <strong>{{ $errors->first('Middlename') }}</strong>
+                    </span>
+                  @endif
+                </div>
+                  </div>
+
+                  <div class="col-md-4">
+  
+                  <div class="input-group {{ $errors->has('Lastname') ? ' has-danger' : '' }}">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <i class="now-ui-icons users_circle-08"></i>
+                    </div>
+                  </div>
+                  <input class="form-control {{ $errors->has('Lastname') ? ' is-invalid' : '' }}" placeholder="{{ __('Lastname') }}" type="text" name="Lastname" value="{{ old('Lastname') }}" required autofocus>
+                  @if ($errors->has('Lastname'))
+                    <span class="invalid-feedback" style="display: block;" role="alert">
+                      <strong>{{ $errors->first('Lastname') }}</strong>
+                    </span>
+                  @endif
+                </div>
+                  </div>
+
+                  <div class="col-md-6">
+  
+                  <div class="input-group {{ $errors->has('Sex') ? ' has-danger' : '' }}">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <i class="now-ui-icons users_circle-08"></i>
+                    </div>
+                  </div>
+                  <select name="Sex" id="" class="form-control">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                  </select>
+                 
+                  @if ($errors->has('Sex'))
+                    <span class="invalid-feedback" style="display: block;" role="alert">
+                      <strong>{{ $errors->first('Sex') }}</strong>
+                    </span>
+                  @endif
+                </div>
+                  </div>
+
+                  <div class="col-md-6">
+                  <div class="input-group {{ $errors->has('Batch') ? ' has-danger' : '' }}">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <i class="now-ui-icons users_circle-08"></i>
+                    </div>
+                  </div>
+                  @php
+                    $batch = DB::select('select * from batches');
+
+                  @endphp
+                    <select required name="Batch" id="" class="form-control">
+                      <option value="">Select Batch</option>
+                      @foreach($batch as $b)
+                    <option value="{{$b->id}}">{{$b->Name}}</option>
+                      @endforeach
+                    </select>
+                  @if ($errors->has('Batch'))
+                    <span class="invalid-feedback" style="display: block;" role="alert">
+                      <strong>{{ $errors->first('Batch') }}</strong>
+                    </span>
+                  @endif
+                </div>
+                  </div>
+                </div>
+
+        
+
+
+
+
+             
+
+                <div class="input-group {{ $errors->has('Section') ? ' has-danger' : '' }}">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <i class="now-ui-icons users_circle-08"></i>
+                    </div>
+                  </div>
+                  @php
+                    $section = DB::select('select * from sections');
+
+                  @endphp
+                    <select required name="Section" id="" class="form-control">
+                      <option value="">Select Section</option>
+                      @foreach($section as $s)
+                    <option value="{{$s->id}}">{{$s->Name}}</option>
+                      @endforeach
+                    </select>
+                  
+                  @if ($errors->has('Section'))
+                    <span class="invalid-feedback" style="display: block;" role="alert">
+                      <strong>{{ $errors->first('Section') }}</strong>
                     </span>
                   @endif
                 </div>

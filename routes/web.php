@@ -78,6 +78,28 @@ Route::post('Submit/Student/Books', 'App\Http\Controllers\Book@store')->name('su
 
 Route::get('fetchallstudent','App\Http\Controllers\Book@fetchstudent')->name('fetchstudent');
 
+Route::get('deleteStudent','App\Http\Controllers\Book@deletestudent')->name('deletestudent');
+
+Route::post('Update/Student','App\Http\Controllers\Book@updatestudent')->name('updatestudent');
+
+//Client
+Route::get('Clients','App\Http\Controllers\Client@index')->name('client');
+
+
+/* Intructor Request */
+Route::get('Students','App\Http\Controllers\AllInstructorController@students')->name('students');
+
+
+/* Clients Request */
+Route::get('MyBook','App\Http\Controllers\AllClientsController@yearbook')->name('yearbook');
+
+
+
+
+
+
+
+
 
 
 
@@ -93,5 +115,7 @@ Route::group(['middleware' => 'auth'], function () {
 	
 //['as' => 'page.section', 'uses' => 'App\Http\Controllers\SectionController@index']
 });
+
+
 
 

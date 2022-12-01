@@ -21,15 +21,28 @@
               @csrf
               @method('put')
               @include('alerts.success')
-              <div class="row">
+              <div class="row"> 
               </div>
                 <div class="row">
                     <div class="col-md-7 pr-1">
                         <div class="form-group">
-                            <label>{{__(" Name")}}</label>
-                                <input type="text" name="name" class="form-control" value="{{ old('name', auth()->user()->name) }}">
-                                @include('alerts.feedback', ['field' => 'name'])
+                            <label>{{__(" First Name")}}</label>
+                                <input type="text" name="Firstname" class="form-control" value="{{ old('Firstname', auth()->user()->Firstname) }}">
+                                @include('alerts.feedback', ['field' => 'Firstname'])
                         </div>
+
+                        <div class="form-group">
+                            <label>{{__(" Middle Name")}}</label>
+                                <input type="text" name="Middlename" class="form-control" value="{{ old('Middlename', auth()->user()->Middlename) }}">
+                                @include('alerts.feedback', ['field' => 'Middlename'])
+                        </div>
+
+                        <div class="form-group">
+                            <label>{{__(" Last Name")}}</label>
+                                <input type="text" name="Lastname" class="form-control" value="{{ old('Lastname', auth()->user()->Lastname) }}">
+                                @include('alerts.feedback', ['field' => 'Lastname'])
+                        </div>
+                        
                     </div>
                 </div>
                 <div class="row">
@@ -104,18 +117,7 @@
               </p>
             </div>
           </div>
-          <hr>
-          <div class="button-container">
-            <button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
-              <i class="fab fa-facebook-square"></i>
-            </button>
-            <button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
-              <i class="fab fa-twitter"></i>
-            </button>
-            <button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
-              <i class="fab fa-google-plus-square"></i>
-            </button>
-          </div>
+          
         </div>
       </div>
     </div>

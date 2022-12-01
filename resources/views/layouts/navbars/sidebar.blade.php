@@ -7,21 +7,58 @@
    
    
   </div>
+
   <div class="sidebar-wrapper" id="sidebar-wrapper">
     <ul class="nav">
-      <li class="@if ($activePage == 'home') active @endif">
+    <li class="@if ($activePage == 'home') active @endif">
         <a href="{{ route('home') }}">
           <i class="now-ui-icons design_app"></i>
           <p>{{ __('Dashboard') }}</p>
         </a>
       </li>
 
-        <li class="@if ($activePage == 'profile') active @endif">
+      @if(Auth::user()->Role == 1)
+  <li class="@if ($activePage == 'books') active @endif">
+          <a href="{{ route('books') }}">
+            <i class="now-ui-icons files_box"></i>
+            <p> {{ __("Books") }} </p>
+          </a>
+        </li>
+
+        <li class="@if ($activePage == 'batch') active @endif">
+          <a href="{{ route('batch') }}">
+            <i class="now-ui-icons education_hat"></i>
+            <p> {{ __("Batch") }} </p>
+          </a>
+        </li>
+        <li class="@if ($activePage == 'students') active @endif">
+          <a href="{{ route('students') }}">
+            <i class="now-ui-icons users_single-02"></i>
+            <p> {{ __("Students") }} </p>
+          </a>
+        </li>
+  @endif
+
+  @if(Auth::user()->Role == 2)
+  <li class="@if ($activePage == 'yearbook') active @endif">
+          <a href="{{ route('yearbook') }}">
+            <i class="now-ui-icons education_hat"></i>
+            <p> {{ __("YearBook") }} </p>
+          </a>
+        </li>
+
+  @endif
+
+      <li class="@if ($activePage == 'profile') active @endif">
           <a href="{{ route('profile.edit') }}">
             <i class="now-ui-icons users_single-02"></i>
             <p> {{ __("User Profile") }} </p>
           </a>
         </li>
+  @if(Auth::user()->Role==0)
+
+
+       
 
         <li class="@if ($activePage == 'books') active @endif">
           <a href="{{ route('books') }}">
@@ -38,7 +75,7 @@
         </li>
 
         <li class="@if ($activePage == 'client') active @endif">
-          <a href="{{ route('profile.edit') }}">
+          <a href="{{ route('client') }}">
             <i class="now-ui-icons users_single-02"></i>
             <p> {{ __("Client") }} </p>
           </a>
@@ -66,13 +103,12 @@
           </a>
         </li>
       
+  @endif
+
+
+      
     
-      <li class = " @if ($activePage == 'table') active @endif">
-        <a href="{{ route('page.index','table') }}">
-          <i class="now-ui-icons design_bullet-list-67"></i>
-          <p>{{ __('Table List') }}</p>
-        </a>
-      </li>
+
  
  
     </ul>

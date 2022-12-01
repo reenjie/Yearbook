@@ -17,7 +17,7 @@
             <script>
               
               $(document).ready(function(){
-                swal("New Student Added!", "A New Student Added Successfully!", "success");
+                swal("Success!", "{{session()->get('alert')}}", "success");
 
               });
             
@@ -30,9 +30,10 @@
                 <div class="col-md-6">
                     <div class="card shadow border-secondary   border" style="border-radius: 10px">
                         <div class="card-body">
+                          
                             <h6>NAVIGATION</h6>
                           <div class="row">
-                            <div class="col-md-6">
+                            <div class="  @if(Auth::user()->Role==1) col-md-12 @else  col-md-6 @endif">
                                 <select name="" class="form-control" id="filterbatch">
                                     <option value="">Select Batch</option>
                                     @foreach ($batch as $b)
@@ -41,12 +42,17 @@
                                 </select>
                             </div>
                             <div class="col-md-6">
+                            @if(Auth::user()->Role==1)
+                      <input type="hidden" id="filtersection" value="{{Auth::user()->SectionID}}" >
+                            @else
                                 <select id="filtersection" name="" class="form-control" id="">
                                     <option value="">Select Section</option>
                                     @foreach ($section as $s)
                                         <option value="{{$s->id}}">{{$s->Name}}</option>
                                     @endforeach
                                 </select>
+
+                                @endif
                             </div>
                           </div>
                         </div>
@@ -74,60 +80,7 @@
                 " type="text" class="form-control" placeholder="Search for ID, Name or Lastname">
                 {{-- /style="height: 100vh;overflow-y:scroll" --}}
                 <div class="grads" > 
-                    <div class="row" id="data">
-                        {{-- @foreach ($student as $row)
-                        <div class="col-md-3 d-flex align-items-stretch">
-                            <div class="card bg-light shadow-lg">
-                                <div class="card-header">
-                                
-                                
-                              <img src="{{asset('photos').'/'.$row->photo}}" style="width: 100%;height:200px" alt="">
-                                </div>
-                                <div class="card-body">
-                                <h6 style="font-weight: bold;text-align:center;font-size:12px">
-                             
-                                {{$row->Firstname.' '.$row->Middlename.' '.$row->Lastname}}
-                                </h6>
-                                <hr>
-                                <span style="font-size: 12px">
-                               <span style="font-size:11px">Birthdate</span>  : {{date('F j, Y',strtotime($row->Birthdate))}}
-                                <br>
-                                <span style="font-size:11px"> Address </span> : {{$row->Address}}
-    
-                          
-                                <br>
-                               
-                                @if($row->Honors)
-                                <span style="font-size:11px"> Honors </span> : 
-                                <br>
-                              <textarea 
-                              readonly
-                              style="border: none;outline:none;-moz-user-select: none;
-                              -webkit-user-select: none;
-                              -ms-user-select: none;
-                              user-select: none;
-                              background-color:transparent;resize:none;cursor:default">{{$row->Honors}}</textarea>
-                            </span>
-                                @endif
-                             
-    
-                                </div>
-                                <div class="card-footer">
-                                    <div class="btn-group">
-                         <button class=" btn btn-link btn-sm text-success">
-                               <i class="fas fa-edit"></i>
-                                        </button>
-                                    </div>
-                                    <div class="btn-group">
-                                        <button class=" btn btn-link btn-sm text-danger">
-                                              <i class="fas fa-trash"></i>
-                                                       </button>
-                                                   </div>
-                                </div>
-                            </div>
-                        </div>
-                        @endforeach --}}
-                       
+                    <div class="row" id="data"> 
                     </div>
                 </div>
              
@@ -144,6 +97,8 @@
       <script>
       
         $(document).ready(function(){
+         
+
             $('#filtersection').change(function(){
                 var section = $(this).val();
                 var batch = $('#filterbatch').val();
