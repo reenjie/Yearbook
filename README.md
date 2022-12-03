@@ -44,3 +44,10 @@ DB_PASSWORD=
 
     <!-- The Local Server or URL -->
     http://localhost:8000
+
+
+
+    Default Admin Credentials:
+
+    admin@admin.com
+    password
