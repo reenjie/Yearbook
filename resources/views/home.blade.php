@@ -9,7 +9,7 @@
   <div class="panel-header panel-header-lg">
     <canvas id="bigDashboardChart"></canvas>
   </div>
-  <div class="content">
+  {{-- <div class="content">
     <div class="row">
       <div class="col-lg-4">
         <div class="card card-chart">
@@ -270,7 +270,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> --}}
 @endsection
 
 @push('js')
