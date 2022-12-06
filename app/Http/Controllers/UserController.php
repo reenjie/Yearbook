@@ -67,6 +67,7 @@ class UserController extends Controller
         'SectionID'=>$section,
         'BatchID' =>$batch,
         'StudentID'=>$student,
+        'printcount'=>3,
         'email' =>$email,
         'password'=>Hash::make($password),
       ]);

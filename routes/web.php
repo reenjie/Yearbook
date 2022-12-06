@@ -96,7 +96,9 @@ Route::get('MyBook','App\Http\Controllers\AllClientsController@yearbook')->name(
 
 
 
-
+/* Prints */
+Route::get('Print','App\Http\Controllers\YearbookprintController@store')->name('printyearbook');
+Route::get('getchance','App\Http\Controllers\YearbookprintController@index')->name('getDownloadChance');
 
 
 

@@ -6,279 +6,97 @@
 ])
 
 @section('content')
-  <div class="panel-header panel-header-lg">
-    <canvas id="bigDashboardChart"></canvas>
+  <div class="panel-header panel-header-sm">
+    
+  @php
+    $client = DB::select('select * from users where  Role = 2 ');
+    $instructor = DB::select('select * from users where Role =1 ');
+    $student = DB::select('select * from students');
+  @endphp
   </div>
-  {{-- <div class="content">
+  <div class="content">
     <div class="row">
-      <div class="col-lg-4">
-        <div class="card card-chart">
+      <div class="col-md-4 d-flex align-stretch-item">
+        <div class="card " style="border-left:10px solid #325aa8">
           <div class="card-header">
-            <h5 class="card-category">Global Sales</h5>
-            <h4 class="card-title">Shipped Products</h4>
-            <div class="dropdown">
-              <button type="button" class="btn btn-round btn-outline-default dropdown-toggle btn-simple btn-icon no-caret" data-toggle="dropdown">
-                <i class="now-ui-icons loader_gear"></i>
-              </button>
-              <div class="dropdown-menu dropdown-menu-right">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-                <a class="dropdown-item text-danger" href="#">Remove Data</a>
-              </div>
-            </div>
+          <h1 style="float:right"><i class="fas fa-user-circle"></i></h1>
+            <h4 class="card-title">Total Number of Clients</h4>
+            <h1>{{count($client)}}</h1>
           </div>
-          <div class="card-body">
-            <div class="chart-area">
-              <canvas id="lineChartExample"></canvas>
-            </div>
-          </div>
-          <div class="card-footer">
-            <div class="stats">
-              <i class="now-ui-icons arrows-1_refresh-69"></i> Just Updated
-            </div>
-          </div>
+         
+         
         </div>
       </div>
-      <div class="col-lg-4 col-md-6">
-        <div class="card card-chart">
+      <div class="col-md-4  d-flex align-stretch-item">
+        <div class="card " style="border-left:10px solid #a83250">
           <div class="card-header">
-            <h5 class="card-category">2018 Sales</h5>
-            <h4 class="card-title">All products</h4>
-            <div class="dropdown">
-              <button type="button" class="btn btn-round btn-outline-default dropdown-toggle btn-simple btn-icon no-caret" data-toggle="dropdown">
-                <i class="now-ui-icons loader_gear"></i>
-              </button>
-              <div class="dropdown-menu dropdown-menu-right">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-                <a class="dropdown-item text-danger" href="#">Remove Data</a>
-              </div>
-            </div>
+          <h1 style="float:right"><i class="fas fa-users"></i></h1>
+          <h4 class="card-title">Instructors</h4>
+          <h1>{{count($instructor)}}</h1>
           </div>
-          <div class="card-body">
-            <div class="chart-area">
-              <canvas id="lineChartExampleWithNumbersAndGrid"></canvas>
-            </div>
-          </div>
-          <div class="card-footer">
-            <div class="stats">
-              <i class="now-ui-icons arrows-1_refresh-69"></i> Just Updated
-            </div>
-          </div>
+         
+        
         </div>
       </div>
-      <div class="col-lg-4 col-md-6">
-        <div class="card card-chart">
+      <div class="col-md-4  d-flex align-stretch-item">
+        <div class="card " style="border-left:10px solid #a88532">
           <div class="card-header">
-            <h5 class="card-category">Email Statistics</h5>
-            <h4 class="card-title">24 Hours Performance</h4>
+            <h1 style="float:right"><i class="fas fa-users"></i></h1>
+            <h4 class="card-title">Students</h4>
+            <h1>{{count($student)}}</h1>
           </div>
-          <div class="card-body">
-            <div class="chart-area">
-              <canvas id="barChartSimpleGradientsNumbers"></canvas>
-            </div>
-          </div>
-          <div class="card-footer">
-            <div class="stats">
-              <i class="now-ui-icons ui-2_time-alarm"></i> Last 7 days
-            </div>
-          </div>
+        
+       
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-6">
-        <div class="card  card-tasks">
-          <div class="card-header ">
-            <h5 class="card-category">Backend development</h5>
-            <h4 class="card-title">Tasks</h4>
-          </div>
-          <div class="card-body ">
-            <div class="table-full-width table-responsive">
-              <table class="table">
-                <tbody>
-                  <tr>
-                    <td>
-                      <div class="form-check">
-                        <label class="form-check-label">
-                          <input class="form-check-input" type="checkbox" checked>
-                          <span class="form-check-sign"></span>
-                        </label>
-                      </div>
-                    </td>
-                    <td class="text-left">Sign contract for "What are conference organizers afraid of?"</td>
-                    <td class="td-actions text-right">
-                      <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Edit Task">
-                        <i class="now-ui-icons ui-2_settings-90"></i>
-                      </button>
-                      <button type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove">
-                        <i class="now-ui-icons ui-1_simple-remove"></i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="form-check">
-                        <label class="form-check-label">
-                          <input class="form-check-input" type="checkbox">
-                          <span class="form-check-sign"></span>
-                        </label>
-                      </div>
-                    </td>
-                    <td class="text-left">Lines From Great Russian Literature? Or E-mails From My Boss?</td>
-                    <td class="td-actions text-right">
-                      <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Edit Task">
-                        <i class="now-ui-icons ui-2_settings-90"></i>
-                      </button>
-                      <button type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove">
-                        <i class="now-ui-icons ui-1_simple-remove"></i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="form-check">
-                        <label class="form-check-label">
-                          <input class="form-check-input" type="checkbox" checked>
-                          <span class="form-check-sign"></span>
-                        </label>
-                      </div>
-                    </td>
-                    <td class="text-left">Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit
-                    </td>
-                    <td class="td-actions text-right">
-                      <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Edit Task">
-                        <i class="now-ui-icons ui-2_settings-90"></i>
-                      </button>
-                      <button type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove">
-                        <i class="now-ui-icons ui-1_simple-remove"></i>
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div class="card-footer ">
-            <hr>
-            <div class="stats">
-              <i class="now-ui-icons loader_refresh spin"></i> Updated 3 minutes ago
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="card">
-          <div class="card-header">
-            <h5 class="card-category">All Persons List</h5>
-            <h4 class="card-title"> Employees Stats</h4>
-          </div>
-          <div class="card-body">
-            <div class="table-responsive">
-              <table class="table">
-                <thead class=" text-primary">
-                  <th>
-                    Name
-                  </th>
-                  <th>
-                    Country
-                  </th>
-                  <th>
-                    City
-                  </th>
-                  <th class="text-right">
-                    Salary
-                  </th>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      Dakota Rice
-                    </td>
-                    <td>
-                      Niger
-                    </td>
-                    <td>
-                      Oud-Turnhout
-                    </td>
-                    <td class="text-right">
-                      $36,738
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Minerva Hooper
-                    </td>
-                    <td>
-                      Curaçao
-                    </td>
-                    <td>
-                      Sinaai-Waas
-                    </td>
-                    <td class="text-right">
-                      $23,789
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Sage Rodriguez
-                    </td>
-                    <td>
-                      Netherlands
-                    </td>
-                    <td>
-                      Baileux
-                    </td>
-                    <td class="text-right">
-                      $56,142
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Doris Greene
-                    </td>
-                    <td>
-                      Malawi
-                    </td>
-                    <td>
-                      Feldkirchen in Kärnten
-                    </td>
-                    <td class="text-right">
-                      $63,542
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Mason Porter
-                    </td>
-                    <td>
-                      Chile
-                    </td>
-                    <td>
-                      Gloucester
-                    </td>
-                    <td class="text-right">
-                      $78,615
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div> --}}
-@endsection
+    <div class="container ">
+    <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+  </div>
+ 
+  </div> 
+  @php
+  $downloads = DB::select('SELECT count(userID) as userCount,created_at FROM yearbookprints GROUP BY  DATE_FORMAT(created_at,"%Y-%m-%d") desc;');
+  @endphp
 
-@push('js')
+
   <script>
-    $(document).ready(function() {
-      // Javascript method's body can be found in assets/js/demos.js
-      demo.initDashboardPageCharts();
+window.onload = function () {
+	
+var chart = new CanvasJS.Chart("chartContainer", {
+	animationEnabled: true,
+	
+	title:{
+		text:"Total Prints of Yearbook"
+	},
+	axisX:{
+		interval: 1
+	},
+	axisY2:{
+		interlacedColor: "rgba(1,77,101,.2)",
+		gridColor: "rgba(1,77,101,.1)",
+		title: ""
+	},
+	data: [{
+		type: "bar",
+		name: "companies",
+		axisYType: "secondary",
+		color: "#014D65",
+		dataPoints: [
+      @foreach($downloads as $row)
 
-    });
-  </script>
-@endpush
+        { y: {{$row->userCount}}, label: "{{date('F j,Y',strtotime($row->created_at))}}" },
+         
+      @endforeach
+		
+		
+		]
+	}]
+});
+chart.render();
+
+}
+</script>
+</script>
+@endsection

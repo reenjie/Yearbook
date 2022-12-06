@@ -12,6 +12,6 @@ class AllInstructorController extends Controller
         $data = Student::where('SectionID',Auth::user()->SectionID)->get();
         $batch = Batch::all();
         $section = Section::all();
-        return view('Students.index',compact('data','section','batch','student'));
+        return view('Students.index',compact('data','section','batch'));
     }
 }
