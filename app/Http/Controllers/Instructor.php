@@ -56,6 +56,7 @@ class Instructor extends Controller
          'SectionID'=>$section,
          'BatchID' =>$batch,
          'StudentID'=>$student,
+         'vrfy'=>0,
          'email' =>$email,
          'password'=>Hash::make($password),
        ]);

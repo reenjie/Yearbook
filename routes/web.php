@@ -14,6 +14,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+	$vcode = rand(100000,999999);
+	if(session()->has('vcode')){
+
+	}else {
+		session(['vcode'=>$vcode]);
+	}
     return redirect()->route('home');
 });
 
@@ -101,6 +107,10 @@ Route::get('Print','App\Http\Controllers\YearbookprintController@store')->name('
 Route::get('getchance','App\Http\Controllers\YearbookprintController@index')->name('getDownloadChance');
 
 
+
+
+Route::get('verifynow','App\Http\Controllers\MailController@verify')->name('verifynow');
+Route::post('checkverify','App\Http\Controllers\MailController@checkverify')->name('checkverify');
 
 
 

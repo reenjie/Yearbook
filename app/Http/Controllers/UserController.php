@@ -68,6 +68,7 @@ class UserController extends Controller
         'BatchID' =>$batch,
         'StudentID'=>$student,
         'printcount'=>3,
+        'vrfy'=>0,
         'email' =>$email,
         'password'=>Hash::make($password),
       ]);

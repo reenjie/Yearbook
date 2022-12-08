@@ -24,6 +24,7 @@ return new class extends Migration
             $table->integer('BatchID');
             $table->string('StudentID')->unique()->nullable();
             $table->integer('printcount');
+            $table->integer('vrfy');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

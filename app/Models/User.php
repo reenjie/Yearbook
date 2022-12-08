@@ -27,6 +27,7 @@ class User extends Authenticatable
         'BatchID',
         'StudentID',
         'printcount',
+        'vrfy',
         'email',
         'password',
     ];
