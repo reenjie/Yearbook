@@ -97,7 +97,7 @@
                    {{$item->Description}}
                     </td>
                     <td class="text-center">
-                        {{$item->Year}}
+                        {{$item->Year.' - '.$item->Year+1}}
                          </td>
                     <td  class="text-center">
                     {{date('@h:m a Fj,Y',strtotime($item->created_at))}}
