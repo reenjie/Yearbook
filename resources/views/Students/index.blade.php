@@ -32,6 +32,10 @@
                 <th class="text-center">
                Downloads
                 </th>
+                <th class="text-center">
+                Got Diploma
+                   </th>
+           
               </thead>
               <tbody>
                 @foreach ($data as $item)
@@ -72,6 +76,13 @@
                   </td>
                   <td class="text-center">
                     {{3 - $item->download}}
+                  </td>
+                  <td>
+                    @if($item->diploma == 0)
+                   <button onclick="window.location.href='{{route('confirmStudent',['id'=>$item->id])}}' " class="btn btn-primary btn-sm">Confirm <i class="fas fa-check-circle"></i></button>
+                    @else 
+                   <span class="badge bg-success text-light" style="font-size:16px">Yes</span>
+                    @endif
                   </td>
                 </tr>
                 @endforeach

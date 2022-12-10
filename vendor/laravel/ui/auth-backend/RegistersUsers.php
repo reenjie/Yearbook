@@ -48,6 +48,7 @@ trait RegistersUsers
                 'StudentID'=>$check[0]['id'],
                 'printcount'=>3,
                 'vrfy'=>0,
+                'status'=>0,
                 'email'=>$request->email,
                 'password'=>Hash::make($request->password),
             ]);

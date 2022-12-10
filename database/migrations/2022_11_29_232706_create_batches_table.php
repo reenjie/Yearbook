@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('Name');
             $table->text('Description')->nullable();
             $table->string('Year');
+            $table->text('bg')->nullable();
             $table->timestamps();
         });
     }

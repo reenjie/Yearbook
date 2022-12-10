@@ -69,6 +69,7 @@ class UserController extends Controller
         'StudentID'=>$student,
         'printcount'=>3,
         'vrfy'=>0,
+        'status'=>0,
         'email' =>$email,
         'password'=>Hash::make($password),
       ]);

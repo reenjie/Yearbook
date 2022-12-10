@@ -24,6 +24,7 @@ class UsersTableSeeder extends Seeder
             'BatchID'=>0,
             'StudentID'=>0,
             'vrfy'=>1,
+            'status'=>0,
             'email'=>'admin@admin.com',
             'password'=>Hash::make('password'),
             'created_at' => now(),

@@ -13,5 +13,6 @@ class Batch extends Model
         'Name',
         'Description',
         'Year',
+        'bg',
     ];
 }

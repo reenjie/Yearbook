@@ -28,6 +28,7 @@ class User extends Authenticatable
         'StudentID',
         'printcount',
         'vrfy',
+        'status',
         'email',
         'password',
     ];

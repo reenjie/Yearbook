@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('StudentID')->unique()->nullable();
             $table->integer('printcount');
             $table->integer('vrfy');
+            $table->integer('status');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

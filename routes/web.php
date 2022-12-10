@@ -88,6 +88,10 @@ Route::get('deleteStudent','App\Http\Controllers\Book@deletestudent')->name('del
 
 Route::post('Update/Student','App\Http\Controllers\Book@updatestudent')->name('updatestudent');
 
+Route::get('Update/Yearbook/Bg','App\Http\Controllers\Book@changebg')->name('changebg');
+
+Route::post('savebookbg','App\Http\Controllers\Book@savebookbg')->name('savebookbg');
+
 //Client
 Route::get('Clients','App\Http\Controllers\Client@index')->name('client');
 
@@ -95,9 +99,14 @@ Route::get('Clients','App\Http\Controllers\Client@index')->name('client');
 /* Intructor Request */
 Route::get('Students','App\Http\Controllers\AllInstructorController@students')->name('students');
 
+Route::get('confirmStudent','App\Http\Controllers\AllInstructorController@confirmStudent')->name('confirmStudent');
+
+Route::get('confirmOrder','App\Http\Controllers\AllInstructorController@confirmOrder')->name('confirmOrder');
+
 
 /* Clients Request */
 Route::get('MyBook','App\Http\Controllers\AllClientsController@yearbook')->name('yearbook');
+Route::get('changebatch','App\Http\Controllers\AllClientsController@changebatch')->name('changebatch');
 
 
 

@@ -37,6 +37,12 @@
             <p> {{ __("Students") }} </p>
           </a>
         </li>
+             <li class="@if ($activePage == 'client') active @endif">
+          <a href="{{ route('client') }}">
+            <i class="now-ui-icons users_single-02"></i>
+            <p> {{ __("Client") }} </p>
+          </a>
+        </li>
   @endif
 
   @if(Auth::user()->Role == 2)

@@ -37,6 +37,22 @@ class YearbookprintController extends Controller
      */
     public function store(Request $request)
     {   
+
+        $data = $request->data; 
+        if($data == 'order'){
+            $userid = Auth::user()->id;
+            User::where('id',$userid)->update([
+                'status'=>1,
+            ]);
+
+        }else if ($data =='confirmor'){
+            $userid = Auth::user()->id;
+            User::where('id',$userid)->update([
+                'status'=>3,
+            ]);
+        }
+        
+        else {
         $userid = Auth::user()->id;
         yearbookprint::create([
             'userID'=>$userid,
@@ -48,6 +64,8 @@ class YearbookprintController extends Controller
         User::where('id',$userid)->update([
             'printcount'=>$total,
         ]);
+        }
+     
 
     }
 

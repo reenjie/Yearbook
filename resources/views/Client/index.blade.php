@@ -54,6 +54,14 @@
                   <th class="text-center">
                   Status
                   </th>
+                  @if(Auth::user()->Role==1)
+                  <th class="text-center">
+                    Order
+                    </th>
+                    <th class="text-center">
+                    Action
+                 </th>
+                 @endif
                 </thead>
                 <tbody>
                   @foreach ($data as $item)
@@ -103,6 +111,35 @@
                     <td class="text-center">
                     <span class="badge badge-success">VERIFIED</span>
                     </td>
+                    @if(Auth::user()->Role==1)
+                    <td class="text-center">
+                      @if($item->status == 0)
+                      None..
+                      @elseif($item->status ==1)
+                      Yes
+
+                      
+                      @elseif($item->status== 3)
+                       OK
+                        @else 
+                      Processing for Delivery...
+          
+                      @endif
+                    </td>
+                      <td class="text-center">
+                        @if($item->status == 0)
+                        Null
+                        @elseif($item->status ==1)
+                        <button onclick="window.location.href='{{route('confirmOrder',['userid'=>$item->id,'type'=>'confirm'])}}' " class="btn btn-primary btn-sm w-100">Confirm <i class="fas fa-check-circle"></i></button>
+                        
+                        @elseif($item->status== 3)
+                      
+                        @else
+                        {{-- <button onclick="window.location.href='{{route('confirmOrder',['userid'=>$item->id,'type'=>'cancel'])}}' " class="btn btn-secondary btn-sm w-100">Cancel <i class="fas fa-times-circle"></i></button> --}}
+                        @endif
+                       
+                   </td>
+                   @endif
                   </tr>
                   @endforeach
                

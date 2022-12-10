@@ -10,12 +10,56 @@
   
   </div>
   <div class="content">
+    @if(Auth::user()->status == 3)
+      @isset($otherbatch)
     <div class="row">
+      <div class="col-md-6">
+         <div class="card bg-light p-3 shadow-lg">
+        <div class="card-body">
+          <h6>View</h6>
+          <select class="form-control" name=""   id="selectbatch">
+            @foreach ($otherbatch as $bs)
+            <option value="">Select Batch</option>
+                <option value="{{$bs->id}}">{{$bs->Name}}</option>
+            @endforeach
+          </select>
+        </div>
+      </div>
+      </div>
+    </div>
+    @else 
+   <div class="card">
+    <div class="card-body">
+      <button class="btn btn-link text-primary" onclick="window.location.href='{{route('yearbook')}}' ">Back</button>
+    </div>
+   </div>
+    @endisset
+     
+    @endif
+    <div class="row">
+      @if(Auth::user()->status == 2)
+      <div class="card bg-light shadow-lg p-3">
+        <div class="card-body">
+          <h6>The DPLMHS. has been confirmed and processing your order for delivery.</h6>
+          <span style="font-size:14px">For Delivery Concern. Please contact (062) 955 0121 for more info.</span>
+          <br>
+          
+          Please <button id="confirmyorder" class="btn btn-primary btn-sm">CONFIRM</button> if you have already received your Order.
+        </div>
+      </div>
+      @endif
+
+    
+
     
     <div class="card " style="background-color: rgb(255, 215, 163)">
         <div class="card-body" >
           @if(Auth::user()->printcount > 0)
-          <button  target="_blank" style="position: fixed;right:10px;top:50px;z-index:9999;background-color:white;border:2px solid orange" class="btn btn-link shadow-lg" style="float: right" id="download">PRINT <i class="fas fa-download"></i></button>
+
+          @isset($otherbatch)
+         
+          <button  target="_blank" style="position: fixed;right:10px;top:50px;z-index:9999;background-color:white;border:2px solid orange" class="btn btn-link shadow-lg" style="float: right" id="download" data-status = "{{Auth::user()->status}}">PRINT <i class="fas fa-download"></i></button>
+            @endisset
           @endif
           <h5>You have <span id="chances"></span> Downloads Remaining..</h5>
            <br>
@@ -28,7 +72,7 @@
     print-color-adjust: exact !important;           /* Firefox 97+, Safari 15.4+ */
 }
           .bgyearbook{
-            background-image:url('https://img.freepik.com/free-vector/graduation-greeting-card_53876-89341.jpg?w=740&t=st=1670294908~exp=1670295508~hmac=6c5367105b93ffc370a6892b37d896d56e197c259ca13639505361ca43d33aaa');
+            background-image:url('{{$batchbg}}');
             background-repeat:no-repeat;
             background-position:center;
             background-size:cover;
@@ -36,9 +80,13 @@
           }
        
        </style>
+       
             <div class="card " style="background-color:#e8ebed">
               <div class="card-body p-5" id="title" >
                 <h1 style="font-weight: bold">DPLMHS YEARBOOK</h1>
+                @foreach ($batches as $bb)
+                      <h6>{{$bb->Name}} | {{$bb->Year.'-'.$bb->Year+1}}</h6>
+                @endforeach
               </div>
             </div>
             
@@ -152,9 +200,70 @@
   });
     }
 
-$('#download').click(function(){
+    $('#selectbatch').change(function(){
+      var batch = $(this).val();
+      window.location.href='{{route("changebatch")}}?id='+batch;
+    })
 
-swal({
+    $('#confirmyorder').click(function(){
+      swal({
+  title: "Order Received?",
+  text: "Please make sure you have received the Order.",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true,
+})
+.then((willDelete) => {
+  if (willDelete) {
+    $.ajax({
+  method: "GET",
+  url: "{{route('printyearbook')}}",
+  data: { data:'confirmor' }
+    })
+  .done(function( msg ) {
+    swal("Thank You!", "Thank you for your purchase and Thank you for being part with us, and Hope to see you soon Grow and Successful.", "success").then(()=>{
+      window.location.reload();
+    });
+
+  });
+
+  }
+});
+    })
+
+$('#download').click(function(){
+    var status = $(this).data('status');
+
+   if(status == 0){
+    //Order
+
+    swal({
+  title: "Order Your Yearbook now?",
+  text: "Order first to get your soft copy yearbook.",
+  icon: "warning",
+  buttons: true,
+  dangerMode: false,
+})
+.then((willDelete) => {
+  if (willDelete) {
+    $.ajax({
+  method: "GET",
+  url: "{{route('printyearbook')}}",
+  data: { data:'order' }
+    })
+  .done(function( msg ) {
+    alert(msg);
+  });
+
+  }
+});
+    
+   }else if (status == 1){
+    //Waiting for confirmation
+    swal("Order in Process", "Your order is currently on process. please wait while the Organization process your Order!", "info");
+   }else if (status == 2){
+    //Download
+    swal({
   title: "Are you sure?",
   text: "Once clicked, Please Save it into PDF. Cause it will decrease your chances of Downloading or Saving the yearbook..",
   icon: "warning",
@@ -166,7 +275,7 @@ swal({
     $.ajax({
   method: "GET",
   url: "{{route('printyearbook')}}",
-  data: { id:1 }
+  data: { data:'print' }
     })
   .done(function( msg ) {
     getCount();
@@ -179,31 +288,13 @@ $('body').html(restorepage);
 
   }
 });
+   }
+
    
 
 
 
-//-------------------------------------------------------//
-//       var myDiv = document.getElementById('printpage');
-// var newWindow = window.open('', 'SecondWindow', 'toolbar=0,stat=0');
-// var style = newWindow.document.createElement('link');
-// style.type = "text/css";
-// style.rel = "stylesheet";
-// style.href = "{{ asset('assets') }}/css/bootstrap.min.css";
-// style.media = "all";
-// var newstyle = newWindow.document.createElement('link');
-// newstyle.type = "text/css";
-// newstyle.rel = "stylesheet";
-// newstyle.href = "{{ asset('assets') }}/css/print.css";
-// newstyle.media = "all";
-// newWindow.document.write("<html><body " +
-// "class='' " +
-// " onload='window.print()'>" +
-// myDiv.innerHTML +
-// "</body></html>");
-// newWindow.document.getElementsByTagName("head")[0].appendChild(style);
-// newWindow.document.close();
-    // window.print();
+
     })
   </script>
  

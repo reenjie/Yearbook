@@ -27,6 +27,7 @@ return new class extends Migration
             $table->integer('BatchID');
             $table->text('photo');
             $table->integer('download');
+            $table->integer('diploma');
             $table->timestamps();
         });
     }

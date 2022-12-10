@@ -53,6 +53,7 @@ class Book extends Controller
             'BatchID'=>$batch,
             'photo'=>$imageName,
             'download'=>3,
+            'diploma'=>0,
            ]);
 
 
@@ -624,5 +625,25 @@ class Book extends Controller
        return redirect()->route('books')->with('alert','Data of Student Updated Successfully!');
 
     }
+
+    public function changebg(){
+        $batch = Batch::all();
+        return view('Book.bg',compact('batch'));
+    }
+
+    public function savebookbg(Request $request){
+       $id = $request->batchid;
+        $file = $request->file('bgimage');
+
+        $image = time().'.'.$file->getClientOriginalExtension();
+        $file->move(public_path('photos'), $image);
+
+        Batch::where('id',$id)->update([
+            'bg'=>$image,
+        ]);
+        
+        return redirect()->back();
+    
+    }   
     
 }

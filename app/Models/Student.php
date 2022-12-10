@@ -22,5 +22,6 @@ class Student extends Model
         'BatchID',
         'photo',
         'download',
+        'diploma',
     ];
 }

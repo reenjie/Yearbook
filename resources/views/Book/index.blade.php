@@ -56,10 +56,18 @@
                             </div>
                           </div>
                         </div>
+                        @if(Auth::user()->Role==0)
+                        <div class="col-md-12">
+                          <button onclick="window.location.href='{{route('changebg')}}' " class="btn btn-dark w-100 btn-sm">Manage Book Background <i class="fas fa-image"></i></button>
+                        </div>
+                        @endif
                     </div>
+
 
                   
                 </div>
+
+               
             </div>
             <div class="container">
                 <button onClick="window.location.href='{{route('addStudent')}}'" class="btn btn-primary">
