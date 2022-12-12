@@ -252,7 +252,13 @@ $('#download').click(function(){
   data: { data:'order' }
     })
   .done(function( msg ) {
-    alert(msg);
+    swal({
+  title: "Order Set!",
+  text: "Your Order Request was send successfully!",
+  icon: "success",
+}).then(()=>{
+    window.location.reload();
+});
   });
 
   }
@@ -261,7 +267,7 @@ $('#download').click(function(){
    }else if (status == 1){
     //Waiting for confirmation
     swal("Order in Process", "Your order is currently on process. please wait while the Organization process your Order!", "info");
-   }else if (status == 2){
+   }else{
     //Download
     swal({
   title: "Are you sure?",
