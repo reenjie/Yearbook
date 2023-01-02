@@ -49,6 +49,7 @@ trait RegistersUsers
                 'printcount'=>3,
                 'vrfy'=>0,
                 'status'=>0,
+                'dstatus'=>0,
                 'email'=>$request->email,
                 'password'=>Hash::make($request->password),
             ]);

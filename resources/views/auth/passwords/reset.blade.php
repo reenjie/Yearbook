@@ -2,7 +2,7 @@
     'namePage' => 'Reset Password',
     'class' => 'login-page sidebar-mini ',
     'activePage' => '',
-    'backgroundImage' => asset('assets') . "/img/bg14.jpg"
+    'backgroundImage' => "https://media.istockphoto.com/id/1058002246/photo/backside-graduation-hats-during-commencement-success-graduates-of-the-university-concept.jpg?s=612x612&w=0&k=20&c=C-GulaMj8L1mbX4cZraquGchW4SXRsiqkFKgjTstGOk="
 ])
 
 @section('content')
@@ -11,11 +11,11 @@
       <div class="col-md-4 ml-auto mr-auto">
         <form role="form" method="POST" action="{{ route('password.update') }}">
           @csrf
-          <input type="hidden" name="token" value="{{ $token }}">
+         {{--  <input type="hidden" name="token" value="{{ $token }}"> --}}
           <div class="card card-login card-plain">
             <div class="card-header ">
               <div class="logo-container">
-                <img src="{{ asset('assets/img/now-logo.png') }}" alt="">
+                <img src="https://cdn.pixabay.com/photo/2014/04/03/10/43/graduation-cap-311248_640.png" alt="">
               </div>
             </div>
             <div class="card-body ">
@@ -32,7 +32,7 @@
                     <i class="now-ui-icons users_circle-08"></i>
                   </div>
                 </span>
-                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="{{ __('Email') }}">
+                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ session()->get('reset') }}" required autocomplete="email"  placeholder="{{ __('Email') }}">
               </div>
               @error('email')
                 <span class="invalid-feedback" role="alert">
@@ -45,7 +45,7 @@
                         <i class="now-ui-icons objects_key-25"></i></i>
                     </div>
                 </div>
-                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="{{ __('Password') }}" required>
+                 <input id="password" type="password" autofocus class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="{{ __('Password') }}" required>
               </div>
               @if ($errors->has('password'))
                 <span class="invalid-feedback" style="display: block;" role="alert">

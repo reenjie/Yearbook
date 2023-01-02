@@ -211,5 +211,88 @@ class MailController extends Controller
         }
     }
 
+
+    public function sendresetlink(Request $request){
+        $email = $request->email;
+        $link  = $request->url;
+
+
+           $mail = new PHPMailer(true);
+
+        try {
+            $mail->isSMTP();
+            $mail->SMTPDebug = SMTP::DEBUG_OFF;
+            $mail->Host = 'smtp.gmail.com';
+            $mail->Port = 465;
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+            $mail->SMTPAuth = true;
+            $mail->AuthType = 'XOAUTH2';
+            $mail->setOAuth(
+                new OAuth(
+                    [
+                        'provider'          => $this->provider,
+                        'clientId'          => $this->client_id,
+                        'clientSecret'      => $this->client_secret,
+                        'refreshToken'      => '1//0eQlzhf8lbEVwCgYIARAAGA4SNwF-L9IrNAwCKnS3Cf5kmvkA0EncdXj5LWrzKaFCgy-CsCTnIodGG8GwLM6-vOY_fFubhO8ZEbE',
+                        'userName'          => 'dplmhsyearbook@gmail.com'
+                    ]
+                )
+            );
+ 
+            $mail->setFrom('dplmhsyearbook@gmail.com','DPLMHS-Noreply');
+            $mail->addAddress($email,$email);
+            $mail->Subject = 'RESET LINK';
+            $mail->CharSet = PHPMailer::CHARSET_UTF8;
+            $body = '<!DOCTYPE html>
+            <html lang="en">
+            
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <meta http-equiv="X-UA-Compatible" content="ie=edge">
+                <title></title>
+            </head>
+            
+            <body >
+            
+            
+                    <h4>Click the link Below to Reset Your Password.</h4>
+            
+            
+                        
+                        <a href='.$link.'> <h1>'.$link.'</h1> </a>
+                 
+                    <br>
+                    <h5>
+                        Do not share this to anyone.
+                        <br>
+            
+                        All rights Reserved &middot; 2022
+            
+                    </h5>
+                    <p><br><br><br></p>
+            
+            </body>
+            
+            </html>
+            
+            ';
+            $mail->msgHTML($body);
+            $mail->AltBody = 'This is a plain text message body';
+            if( $mail->send() ) {
+                
+                session(['reset'=>$email]);
+                return redirect()->back();
+            } else {
+             echo 'not send';
+              //  return redirect()->back()->with('error', 'Unable to send email.');
+            }
+        } catch(Exception $e) {
+         return $e;
+         //   return redirect()->back()->with('error', 'Exception: ' . $e->getMessage());
+        }  
+
+    }
+
 }
 

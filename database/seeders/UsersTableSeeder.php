@@ -25,6 +25,7 @@ class UsersTableSeeder extends Seeder
             'StudentID'=>0,
             'vrfy'=>1,
             'status'=>0,
+            'dstatus'=>0,
             'email'=>'admin@admin.com',
             'password'=>Hash::make('password'),
             'created_at' => now(),

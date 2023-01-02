@@ -21,6 +21,7 @@ Route::get('/', function () {
 		session(['vcode'=>$vcode]);
 	}
     return redirect()->route('home');
+	  
 });
 
 Auth::routes();
@@ -120,6 +121,34 @@ Route::get('getchance','App\Http\Controllers\YearbookprintController@index')->na
 
 Route::get('verifynow','App\Http\Controllers\MailController@verify')->name('verifynow');
 Route::post('checkverify','App\Http\Controllers\MailController@checkverify')->name('checkverify');
+
+Route::get('sendreset','App\Http\Controllers\MailController@sendresetlink')->name('sendreset');
+
+Route::get('resetlink',function(){
+		if(session()->has('reset')){
+			return view('auth.passwords.reset');
+		}else{
+			echo '<!DOCTYPE html>
+			<html lang="">
+			<head>
+				<meta charset="utf-8">
+				<meta name="viewport" content="width=device-width, initial-scale=1">
+				<title>404 Custom Error Page Example</title>
+				<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+			</head>
+			<body>
+				<div class="container mt-5 pt-5">
+					<div class="alert alert-danger text-center">
+						<h2 class="display-3">404</h2>
+						<p class="display-5">Oops! Something is wrong.</p>
+					</div>
+				</div>
+			</body>
+			</html>';
+		}
+	
+}
+)->name('resetlink');
 
 
 

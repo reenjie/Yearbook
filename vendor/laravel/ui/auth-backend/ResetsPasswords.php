@@ -12,6 +12,9 @@ use Illuminate\Support\Str;
 use Illuminate\Validation\Rules;
 use Illuminate\Validation\ValidationException;
 
+
+use App\Models\User;
+
 trait ResetsPasswords
 {
     use RedirectsUsers;
@@ -41,23 +44,36 @@ trait ResetsPasswords
      */
     public function reset(Request $request)
     {
-        $request->validate($this->rules(), $this->validationErrorMessages());
+        //$request->validate($this->rules(), $this->validationErrorMessages());
 
         // Here we will attempt to reset the user's password. If it is successful we
         // will update the password on an actual user model and persist it to the
         // database. Otherwise we will parse the error and return the response.
-        $response = $this->broker()->reset(
+     /*    $response = $this->broker()->reset(
             $this->credentials($request), function ($user, $password) {
                 $this->resetPassword($user, $password);
             }
-        );
+        ); */
 
         // If the password was successfully reset, we will redirect the user back to
         // the application's home authenticated view. If there is an error we can
         // redirect them back to where they came from with their error message.
-        return $response == Password::PASSWORD_RESET
+ /*        return $response == Password::PASSWORD_RESET
                     ? $this->sendResetResponse($request, $response)
-                    : $this->sendResetFailedResponse($request, $response);
+                    : $this->sendResetFailedResponse($request, $response); */
+
+                    $this->validate($request, [
+                        'password' => 'min:6|required_with:password_confirmation|same:password_confirmation',
+                        'password_confirmation' => 'min:6'
+                        ]);
+
+                    User::where('email',$request->email)->update([
+                        'password'=>Hash::make($request->password),
+                    ]);
+
+                return redirect()->route('login')->with('success','Password Changed Successfully!');
+        
+
     }
 
     /**

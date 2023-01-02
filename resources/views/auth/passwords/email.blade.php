@@ -2,7 +2,7 @@
     'namePage' => 'Reset Password',
     'class' => 'login-page sidebar-mini ',
     'activePage' => '',
-    'backgroundImage' => asset('assets') . "/img/bg14.jpg",
+    'backgroundImage' => "https://media.istockphoto.com/id/1058002246/photo/backside-graduation-hats-during-commencement-success-graduates-of-the-university-concept.jpg?s=612x612&w=0&k=20&c=C-GulaMj8L1mbX4cZraquGchW4SXRsiqkFKgjTstGOk=",
 ])
 
 @section('content')
@@ -14,7 +14,7 @@
                     <div class="card card-login card-plain">
                         <div class="card-header ">
                             <div class="logo-container">
-                                <img src="{{ asset('assets/img/now-logo.png') }}" alt="">
+                                <img src="https://cdn.pixabay.com/photo/2014/04/03/10/43/graduation-cap-311248_640.png" alt="">
                             </div>
                         </div>
                         <div class="card-body ">
@@ -24,6 +24,14 @@
                                         {{ session('status') }}
                                     </div>
                                 @endif
+
+                                @if(session('reset'))
+                                <div class="alert alert-warning" role="alert">
+                                 Reset link was Send Successfully. Please check your email and click the link to reset your password.
+                                </div>
+                                @endif
+
+                                
                             </div>
                             <div class="input-group no-border form-control-lg {{ $errors->has('email') ? ' has-danger' : '' }}">
                                 <span class="input-group-prepend">

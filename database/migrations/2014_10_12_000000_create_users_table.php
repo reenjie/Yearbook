@@ -19,13 +19,14 @@ return new class extends Migration
             $table->string("Middlename");
             $table->string("Lastname");
             $table->string("Sex");
-            $table->integer("Role"); // 0 :admin / 1 : Instructor / 2 :Client
+            $table->integer("Role"); // 0 :admin / 1 : Instructor / 2 :Client / 3: Courier
             $table->integer('SectionID');
             $table->integer('BatchID');
             $table->string('StudentID')->unique()->nullable();
             $table->integer('printcount');
             $table->integer('vrfy');
             $table->integer('status');
+            $table->integer('dstatus');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

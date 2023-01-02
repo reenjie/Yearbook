@@ -40,11 +40,68 @@
       @if(Auth::user()->status == 2)
       <div class="card bg-light shadow-lg p-3">
         <div class="card-body">
+
+          <button class="btn btn-dark text-light btn-sm" data-toggle="modal" data-target="#exampleModal">Delivery Information <i class="fas fa-info-circle"></i></button>
+
+  
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+     
+      <div class="modal-body">
+       
+        <span style="font-size:11px">{{date('Y-m-d')}}</span>
+        <h6 style="font-size:12px;font-weight:normal">
+           School is preparing your order.
+      
+        </h6>
+        <hr>
+        <span style="font-size:11px">{{date('Y-m-d')}}</span>
+        <h6 style="font-size:12px;font-weight:normal">
+          Courier has taken the Parcel.
+      
+        </h6>
+        <hr>
+
+        <span style="font-size:11px">{{date('Y-m-d')}}</span>
+        <h6 style="font-size:12px;font-weight:normal">
+          Parcel has been shipped. { To your destination }
+      
+        </h6>
+        <hr>
+
+        <span style="font-size:11px">{{date('Y-m-d')}}</span>
+        <h6 style="font-size:12px;font-weight:normal">
+          Parcel has Arrived at the sorting station. 
+      
+        </h6>
+        <hr>
+
+        <span style="font-size:11px">{{date('Y-m-d')}}</span>
+        <h6 style="font-size:12px;font-weight:normal">
+          Parcel is out for delivery..
+      
+        </h6>
+        <hr>
+
+     
+
+
+        <br>
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+    
+      </div>
+    
+    </div>
+  </div>
+</div>
+
           <h6>The DPLMHS. has been confirmed and processing your order for delivery.</h6>
           <span style="font-size:14px">For Delivery Concern. Please contact (062) 955 0121 for more info.</span>
           <br>
           
-          Please <button id="confirmyorder" class="btn btn-primary btn-sm">CONFIRM</button> if you have already received your Order.
+        {{--   Please <button id="confirmyorder" class="btn btn-primary btn-sm">CONFIRM</button> if you have already received your Order. --}}
         </div>
       </div>
       @endif

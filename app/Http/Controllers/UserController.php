@@ -70,6 +70,7 @@ class UserController extends Controller
         'printcount'=>3,
         'vrfy'=>0,
         'status'=>0,
+        'dstatus'=>0,
         'email' =>$email,
         'password'=>Hash::make($password),
       ]);
