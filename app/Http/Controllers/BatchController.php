@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Batch;
+use App\Models\Excel;
 use Illuminate\Http\Request;
 
 class BatchController extends Controller
@@ -16,7 +17,7 @@ class BatchController extends Controller
     {
         //
         $data = Batch::all();
-        return view('Batch.index',compact('data'));
+        return view('Batch.index', compact('data'));
     }
 
     /**
@@ -26,7 +27,6 @@ class BatchController extends Controller
      */
     public function create()
     {
-        
     }
 
     /**
@@ -37,16 +37,16 @@ class BatchController extends Controller
      */
     public function store(Request $request)
     {
-       $name = $request->input('name');
-       $desc = $request->input('description');
-       $year = $request->input('year');
+        $name = $request->input('name');
+        $desc = $request->input('description');
+        $year = $request->input('year');
 
-       Batch::create([
-        'Name'=>$name,
-        'Description'=>$desc,
-        'Year'=>$year,
-       ]);
-       return redirect()->route('batch')->with('alert','New Batch Inserted Successfully!');
+        Batch::create([
+            'Name' => $name,
+            'Description' => $desc,
+            'Year' => $year,
+        ]);
+        return redirect()->route('batch')->with('alert', 'New Batch Inserted Successfully!');
     }
 
     /**
@@ -57,7 +57,6 @@ class BatchController extends Controller
      */
     public function show(Batch $batch)
     {
-       
     }
 
     /**
@@ -67,19 +66,19 @@ class BatchController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Request $request)
-    {   
+    {
         $id = $request->input('id');
         $name = $request->input('name');
         $desc = $request->input('description');
         $year = $request->input('year');
 
         Batch::findorFail($id)->update([
-        'Name'=>$name,
-        'Description'=>$desc,
-        'Year'=>$year,
+            'Name' => $name,
+            'Description' => $desc,
+            'Year' => $year,
         ]);
 
-        return redirect()->route('batch')->with('alert','Batch Updated Successfully!');
+        return redirect()->route('batch')->with('alert', 'Batch Updated Successfully!');
     }
 
     /**
@@ -105,7 +104,42 @@ class BatchController extends Controller
         $id = $request->id;
 
         Batch::findorFail($id)->delete();
-        return redirect()->route('batch')->with('alert','Batch Deleted Successfully!');
+        return redirect()->route('batch')->with('alert', 'Batch Deleted Successfully!');
+    }
 
+    public function excelupload(Request $request)
+    {
+        $batch = $request->batch;
+        $file  = $request->file('excellfile');
+        $typeof = $request->typeof;
+
+        $file->move(public_path('excel'),  $file->getClientOriginalName());
+
+        $save = Excel::create([
+            'file' => $file->getClientOriginalName(),
+            'batch' => $batch,
+            'typeof' => $typeof,
+        ]);
+
+        if ($save) {
+            return redirect()->back()->with('alert', 'File saved Successfully!');
+        }
+    }
+
+    public function destroyfile(Request $request)
+    {
+        $id = $request->id;
+
+        $ex = Excel::findorFail($id);
+
+        $filename = public_path('excel') . '/' . $ex->file;
+
+        if (file_exists($filename)) {
+            unlink($filename);
+        }
+
+        if ($ex->delete()) {
+            return redirect()->back()->with('alert', 'File deleted Successfully!');
+        }
     }
 }

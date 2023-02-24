@@ -14,14 +14,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-	$vcode = rand(100000,999999);
-	if(session()->has('vcode')){
-
-	}else {
-		session(['vcode'=>$vcode]);
+	$vcode = rand(100000, 999999);
+	if (session()->has('vcode')) {
+	} else {
+		session(['vcode' => $vcode]);
 	}
-    return redirect()->route('home');
-	  
+	return redirect()->route('home');
 });
 
 Auth::routes();
@@ -37,7 +35,7 @@ Route::post('/Add/Section', 'App\Http\Controllers\SectionController@store')->nam
 
 Route::post('/Edit/Section', 'App\Http\Controllers\SectionController@edit')->name('editsection');
 
-Route::get('/Delete/Section','App\Http\Controllers\SectionController@destroy')->name('deletesection');
+Route::get('/Delete/Section', 'App\Http\Controllers\SectionController@destroy')->name('deletesection');
 
 //users
 
@@ -47,7 +45,7 @@ Route::post('/Add/Users', 'App\Http\Controllers\UserController@store')->name('ad
 Route::post('/Edit/User', 'App\Http\Controllers\UserController@edit')->name('edituser');
 
 
-Route::get('/Delete/User','App\Http\Controllers\UserController@destroy')->name('deleteuser');
+Route::get('/Delete/User', 'App\Http\Controllers\UserController@destroy')->name('deleteuser');
 
 
 
@@ -61,9 +59,10 @@ Route::post('/Add/Batch', 'App\Http\Controllers\BatchController@store')->name('a
 
 Route::post('/Edit/Batch', 'App\Http\Controllers\BatchController@edit')->name('editbatch');
 
-Route::get('/Delete/Batch','App\Http\Controllers\BatchController@destroy')->name('deletebatch');
+Route::get('/Delete/Batch', 'App\Http\Controllers\BatchController@destroy')->name('deletebatch');
 
-
+Route::post('addexcelfile', 'App\Http\Controllers\BatchController@excelupload')->name('addexcelfile');
+Route::get('deletefile', 'App\Http\Controllers\BatchController@destroyfile')->name('deletefile');
 //Instructor
 
 Route::get('/Instructors', 'App\Http\Controllers\Instructor@index')->name('instructor');
@@ -73,7 +72,7 @@ Route::post('/Add/Instructors', 'App\Http\Controllers\Instructor@store')->name('
 Route::post('/Edit/Instructors', 'App\Http\Controllers\Instructor@edit')->name('editinstructor');
 
 
-Route::get('/Delete/Instructors','App\Http\Controllers\Instructor@destroy')->name('deleteinstructor');
+Route::get('/Delete/Instructors', 'App\Http\Controllers\Instructor@destroy')->name('deleteinstructor');
 
 //Book
 
@@ -83,51 +82,53 @@ Route::get('Add/Student/Books', 'App\Http\Controllers\Book@StoreStudent')->name(
 
 Route::post('Submit/Student/Books', 'App\Http\Controllers\Book@store')->name('submitstudent');
 
-Route::get('fetchallstudent','App\Http\Controllers\Book@fetchstudent')->name('fetchstudent');
+Route::get('fetchallstudent', 'App\Http\Controllers\Book@fetchstudent')->name('fetchstudent');
 
-Route::get('deleteStudent','App\Http\Controllers\Book@deletestudent')->name('deletestudent');
+Route::get('deleteStudent', 'App\Http\Controllers\Book@deletestudent')->name('deletestudent');
 
-Route::post('Update/Student','App\Http\Controllers\Book@updatestudent')->name('updatestudent');
+Route::post('Update/Student', 'App\Http\Controllers\Book@updatestudent')->name('updatestudent');
 
-Route::get('Update/Yearbook/Bg','App\Http\Controllers\Book@changebg')->name('changebg');
+Route::get('Update/Yearbook/Bg', 'App\Http\Controllers\Book@changebg')->name('changebg');
 
-Route::post('savebookbg','App\Http\Controllers\Book@savebookbg')->name('savebookbg');
+Route::post('savebookbg', 'App\Http\Controllers\Book@savebookbg')->name('savebookbg');
 
 //Client
-Route::get('Clients','App\Http\Controllers\Client@index')->name('client');
+Route::get('Clients', 'App\Http\Controllers\Client@index')->name('client');
 
 
 /* Intructor Request */
-Route::get('Students','App\Http\Controllers\AllInstructorController@students')->name('students');
+Route::get('Students', 'App\Http\Controllers\AllInstructorController@students')->name('students');
 
-Route::get('confirmStudent','App\Http\Controllers\AllInstructorController@confirmStudent')->name('confirmStudent');
+Route::get('confirmStudent', 'App\Http\Controllers\AllInstructorController@confirmStudent')->name('confirmStudent');
 
-Route::get('confirmOrder','App\Http\Controllers\AllInstructorController@confirmOrder')->name('confirmOrder');
+Route::get('confirmOrder', 'App\Http\Controllers\AllInstructorController@confirmOrder')->name('confirmOrder');
 
 
 /* Clients Request */
-Route::get('MyBook','App\Http\Controllers\AllClientsController@yearbook')->name('yearbook');
-Route::get('changebatch','App\Http\Controllers\AllClientsController@changebatch')->name('changebatch');
+Route::get('MyBook', 'App\Http\Controllers\AllClientsController@yearbook')->name('yearbook');
+Route::get('changebatch', 'App\Http\Controllers\AllClientsController@changebatch')->name('changebatch');
 
 
 
 
 /* Prints */
-Route::get('Print','App\Http\Controllers\YearbookprintController@store')->name('printyearbook');
-Route::get('getchance','App\Http\Controllers\YearbookprintController@index')->name('getDownloadChance');
+Route::get('Print', 'App\Http\Controllers\YearbookprintController@store')->name('printyearbook');
+Route::get('getchance', 'App\Http\Controllers\YearbookprintController@index')->name('getDownloadChance');
 
 
 
 
-Route::get('verifynow','App\Http\Controllers\MailController@verify')->name('verifynow');
-Route::post('checkverify','App\Http\Controllers\MailController@checkverify')->name('checkverify');
+Route::get('verifynow', 'App\Http\Controllers\MailController@verify')->name('verifynow');
+Route::post('checkverify', 'App\Http\Controllers\MailController@checkverify')->name('checkverify');
+Route::get('notifyready', 'App\Http\Controllers\MailController@notifyready')->name('notifyready');
+Route::get('sendreset', 'App\Http\Controllers\MailController@sendresetlink')->name('sendreset');
 
-Route::get('sendreset','App\Http\Controllers\MailController@sendresetlink')->name('sendreset');
-
-Route::get('resetlink',function(){
-		if(session()->has('reset')){
+Route::get(
+	'resetlink',
+	function () {
+		if (session()->has('reset')) {
 			return view('auth.passwords.reset');
-		}else{
+		} else {
 			echo '<!DOCTYPE html>
 			<html lang="">
 			<head>
@@ -146,8 +147,7 @@ Route::get('resetlink',function(){
 			</body>
 			</html>';
 		}
-	
-}
+	}
 )->name('resetlink');
 
 
@@ -162,10 +162,6 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 
-	
-//['as' => 'page.section', 'uses' => 'App\Http\Controllers\SectionController@index']
+
+	//['as' => 'page.section', 'uses' => 'App\Http\Controllers\SectionController@index']
 });
-
-
-
-
