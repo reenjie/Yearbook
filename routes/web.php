@@ -90,6 +90,13 @@ Route::post('Update/Student', 'App\Http\Controllers\Book@updatestudent')->name('
 
 Route::get('Update/Yearbook/Bg', 'App\Http\Controllers\Book@changebg')->name('changebg');
 
+Route::get('Manage/BackgroundFront', 'App\Http\Controllers\Book@changefront')->name('changefront');
+Route::get('Manage/BackgroundBack', 'App\Http\Controllers\Book@changeback')->name('changeback');
+Route::post('savefpage', 'App\Http\Controllers\FrontpageController@savefpage')->name('SaveFPage');
+
+Route::get('deletePages', 'App\Http\Controllers\FrontpageController@deletePages')->name('deletePages');
+
+
 Route::post('savebookbg', 'App\Http\Controllers\Book@savebookbg')->name('savebookbg');
 
 //Client

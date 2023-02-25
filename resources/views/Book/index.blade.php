@@ -171,6 +171,9 @@
                 </div>
                 @if(Auth::user()->Role==0)
                 <div class="col-md-12">
+
+                  <button onclick="window.location.href='{{route('changefront')}}' " class="btn btn-dark w-100 btn-sm">Manage Front Covers,Introductions etc <i class="fas fa-cogs"></i></button>
+                  <button onclick="window.location.href='{{route('changeback')}}' " class="btn btn-dark w-100 btn-sm">Manage Back Covers,Ending Messages etc <i class="fas fa-cogs"></i></button>
                   <button onclick="window.location.href='{{route('changebg')}}' " class="btn btn-dark w-100 btn-sm">Manage Book Background <i class="fas fa-image"></i></button>
                 </div>
                 @endif

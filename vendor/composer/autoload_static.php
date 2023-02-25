@@ -347,8 +347,8 @@ class ComposerStaticInit3d33aba47c6874bcd281cb8514f1d8de
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -551,8 +551,11 @@ class ComposerStaticInit3d33aba47c6874bcd281cb8514f1d8de
         'App\\Http\\Controllers\\Book' => __DIR__ . '/../..' . '/app/Http/Controllers/Book.php',
         'App\\Http\\Controllers\\Client' => __DIR__ . '/../..' . '/app/Http/Controllers/Client.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+        'App\\Http\\Controllers\\FrontpageController' => __DIR__ . '/../..' . '/app/Http/Controllers/FrontpageController.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\Instructor' => __DIR__ . '/../..' . '/app/Http/Controllers/Instructor.php',
+        'App\\Http\\Controllers\\MailController' => __DIR__ . '/../..' . '/app/Http/Controllers/MailController.php',
+        'App\\Http\\Controllers\\OauthController' => __DIR__ . '/../..' . '/app/Http/Controllers/OauthController.php',
         'App\\Http\\Controllers\\PageController' => __DIR__ . '/../..' . '/app/Http/Controllers/PageController.php',
         'App\\Http\\Controllers\\ProfileController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProfileController.php',
         'App\\Http\\Controllers\\SectionController' => __DIR__ . '/../..' . '/app/Http/Controllers/SectionController.php',
@@ -574,10 +577,13 @@ class ComposerStaticInit3d33aba47c6874bcd281cb8514f1d8de
         'App\\Http\\Requests\\ProfileRequest' => __DIR__ . '/../..' . '/app/Http/Requests/ProfileRequest.php',
         'App\\Http\\Requests\\UserRequest' => __DIR__ . '/../..' . '/app/Http/Requests/UserRequest.php',
         'App\\Models\\Batch' => __DIR__ . '/../..' . '/app/Models/Batch.php',
+        'App\\Models\\Excel' => __DIR__ . '/../..' . '/app/Models/Excel.php',
+        'App\\Models\\Frontpage' => __DIR__ . '/../..' . '/app/Models/Frontpage.php',
         'App\\Models\\Section' => __DIR__ . '/../..' . '/app/Models/Section.php',
         'App\\Models\\Session' => __DIR__ . '/../..' . '/app/Models/Session.php',
         'App\\Models\\Student' => __DIR__ . '/../..' . '/app/Models/Student.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
+        'App\\Models\\photos' => __DIR__ . '/../..' . '/app/Models/photos.php',
         'App\\Models\\yearbookprint' => __DIR__ . '/../..' . '/app/Models/yearbookprint.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
