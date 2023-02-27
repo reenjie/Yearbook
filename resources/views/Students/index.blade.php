@@ -14,6 +14,7 @@
 
     <div class="card">
         <div class="card-body">
+          <button class="btn btn-primary btn-sm">Import File <i class="fas fa-save"></i></button>
           <div class="table-responsive">
             <table class="table" style="color:gray">
               <thead class=" text-primary">

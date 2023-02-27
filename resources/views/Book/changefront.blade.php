@@ -42,6 +42,7 @@
                                 <h6>
                                     Title
                                 </h6>
+                                <input type="hidden" name="pagetype" value="0">
                                 <input type="text" class="form-control mb-2" name="title">
                                 <div class="custom-control custom-switch mb-2">
                                     <input type="checkbox" class="custom-control-input" id="customSwitch1">
@@ -98,13 +99,64 @@
                     @foreach($frontpages as $row)
                     <div class="card shadow">
                         <div class="card-body">
+                            <span class="" style="font-size:11px;color:gray">Front Contents</span>
                             <div class="row">
                                 <div class="col-md-4"></div>
                                 <div class="col-md-6"></div>
                                 <div class="col-md-2">
 
                                     <button class="btn btn-link text-danger delete" data-id="{{$row->id}}" style="float:right"><i class="fas fa-trash-can"></i></button>
-                                    <button class="btn btn-link text-success" style="float:right"><i class="fas fa-edit"></i></button>
+                                    <button class="btn btn-link text-success" style="float:right" data-toggle="modal" data-target="#editmodal{{$row->id}}"><i class="fas fa-edit"></i></button>
+
+                                    <div class="modal fade" id="editmodal{{$row->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Edit Front Cover</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                        
+                                                <form action="{{route('SaveEditFPage')}}" method="post" enctype="multipart/form-data">
+                                                    @csrf
+                        
+                                                    <div class="modal-body">
+                                                        <input type="hidden" name="id" value="{{$row->id}}">
+                        
+                                                        <h6>
+                                                            Title
+                                                        </h6>
+                                                        <input type="text" class="form-control mb-2" name="title" value="{{$row->title}}">
+                                                        {{-- <div class="custom-control custom-switch mb-2">
+                                                            <input type="checkbox" class="custom-control-input" id="customSwitch2">
+                                                            <label class="custom-control-label" for="customSwitch2">Multiple Image</label>
+                                                        </div> --}}
+                                                        <h6>
+                                                          Upload to  Update Image File
+                                                        </h6>
+                                                        <input type="file" name="attachfile" accept="image/*" class="form-control mb-2" id="imgfile2">
+                                                        <input type="hidden" name="addtype" id="addtype2" value="single">
+                        
+                                                        <span style="font-size:14px">
+                                                            Other Info :
+                                                        </span>
+                                                        <textarea name="otherinfo" class="form-control" id="" placeholder="Name,Address Etc.." cols="30" rows="10">{{$row->otherinfo}}</textarea>
+                                                        <h6 class="mt-2">
+                                                            Message
+                                                        </h6>
+                                                        <textarea name="message" class="form-control" id="" cols="30" rows="10">{{$row->message}}</textarea>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
                                 </div>
                             </div>
 
@@ -175,6 +227,18 @@
             $('#imgfile').removeAttr('multiple');
             $('#imgfile').attr('name', "attachfile");
             $('#addtype').val('single');
+        }
+    })
+
+    $('#customSwitch2').click(function() {
+        if ($(this).prop("checked") == true) {
+            $('#imgfile2').attr('multiple', true);
+            $('#imgfile2').attr('name', "attachfile[]");
+            $('#addtype2').val('multiple');
+        } else if ($(this).prop("checked") == false) {
+            $('#imgfile2').removeAttr('multiple');
+            $('#imgfile2').attr('name', "attachfile");
+            $('#addtype2').val('single');
         }
     })
 </script>

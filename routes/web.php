@@ -94,6 +94,8 @@ Route::get('Manage/BackgroundFront', 'App\Http\Controllers\Book@changefront')->n
 Route::get('Manage/BackgroundBack', 'App\Http\Controllers\Book@changeback')->name('changeback');
 Route::post('savefpage', 'App\Http\Controllers\FrontpageController@savefpage')->name('SaveFPage');
 
+Route::post('SaveEditFPage','App\Http\Controllers\FrontpageController@SaveEditFPage')->name('SaveEditFPage');
+
 Route::get('deletePages', 'App\Http\Controllers\FrontpageController@deletePages')->name('deletePages');
 
 

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text('message')->nullable();
             $table->text('otherinfo')->nullable();
             $table->integer('arrangement');
-            $table->integer('pagetype')->default('0 = front , 1 = back');
+            $table->integer('pagetype')->comment('0 = front , 1 = back');
             $table->timestamps();
         });
     }
