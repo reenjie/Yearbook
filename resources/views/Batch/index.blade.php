@@ -19,10 +19,12 @@
           @else
           <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i> Add</button>
 
-          <button class="btn btn-info" data-toggle="modal" data-target="#FileUpload"><i class="fas fa-upload"></i> Upload List ( <span style="font-size: 10px;">Excel File</span>)</button>
+          <button class="btn btn-info" data-toggle="modal" data-target="#FileUpload"><i class="fas fa-upload"></i> Upload List ( <span style="font-size: 10px;">CSV File</span>)</button>
 
-          <button class="btn btn-secondary" data-toggle="modal" data-target="#ExcelFiles"><i class="fas fa-list"></i> List ( <span style="font-size: 10px;">Excel File</span>)</button>
+          <button class="btn btn-secondary" data-toggle="modal" data-target="#ExcelFiles"><i class="fas fa-list"></i> List ( <span style="font-size: 10px;">CSV File</span>)</button>
 
+
+          <button class="btn btn-primary" onclick="window.location.href='{{asset('excel').'/template/csvtemplate_yearbook.csv'}}' " ><i class="fas fa-download"></i> Download CSV Template ( <span style="font-size: 10px;">CSV File</span>)</button>
           @endif
 
           @php
@@ -37,7 +39,7 @@
             <div class="modal-dialog modal-lg" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h6 class="modal-title" id="exampleModalLabel">LIST OF STUDENTS ( <span style="font-size: 10px;">Excel File</span>)</h6>
+                  <h6 class="modal-title" id="exampleModalLabel">LIST OF STUDENTS ( <span style="font-size: 10px;">CSV File</span>)</h6>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -59,8 +61,9 @@
                       <tr class="table-danger">
                         <th colspan="3" style="text-align:center">Batch {{$row->Year}} - {{$row->Year + 1}}</th>
                       </tr>
-                      <tr>
+                    
                         @foreach($excel as $ex)
+                        <tr>
                         @if($ex->batch == $row->id)
                         <td class="text-primary">
                           {{$ex->file}}
@@ -71,9 +74,10 @@
                           <button class="btn btn-sm btn-danger" onclick="DeleteFile({{$ex->id}})"><i class="fas fa-trash"></i></button>
                         </td>
                         @endif
+                      </tr>
                         @endforeach
 
-                      </tr>
+                    
 
 
 
@@ -98,7 +102,7 @@
             <div class="modal-dialog modal-sm" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h6 class="modal-title" id="exampleModalLabel">Upload list ( <span style="font-size: 10px;">Excel File</span>)</h6>
+                  <h6 class="modal-title" id="exampleModalLabel">Upload list ( <span style="font-size: 10px;">CSV File</span>)</h6>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -106,8 +110,9 @@
                 <form action="{{route('addexcelfile')}}" method="post" enctype="multipart/form-data">
                   @csrf
                   <div class="modal-body">
-                    <h6 class="mt-2 mb-2">Select Excel File</h6>
-                    <input type="file" name="excellfile" required accept="application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" class="form-control" />
+                    <span style="font-size:11px;color:red">Please ensure that you have utilized the CSV template, otherwise,import will be a failure.</span>
+                    <h6 class="mt-2 mb-2">Select CSV File</h6>
+                    <input type="file" name="excellfile" required accept="text/csv" class="form-control" />
 
                     <h6 class="mt-2">Select Batch</h6>
                     <select name="batch" required class="form-control mb-2" id="">

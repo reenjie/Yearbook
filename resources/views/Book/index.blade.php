@@ -52,7 +52,7 @@
                     <div class="modal-dialog modal-lg" role="document">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h6 class="modal-title" id="exampleModalLabel">LIST OF STUDENTS ( <span style="font-size: 10px;">Excel File</span>)</h6>
+                          <h6 class="modal-title" id="exampleModalLabel">Yearbook  ( <span style="font-size: 10px;">PDF FILE</span>)</h6>
                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                           </button>
@@ -74,8 +74,9 @@
                               <tr class="table-danger">
                                 <th colspan="3" style="text-align:center">Batch {{$row->Year}} - {{$row->Year + 1}}</th>
                               </tr>
-                              <tr>
+                             
                                 @foreach($excel as $ex)
+                                <tr>
                                 @if($ex->batch == $row->id)
                                 <td class="text-primary">
                                   {{$ex->file}}
@@ -86,9 +87,10 @@
                                   <button class="btn btn-sm btn-danger" onclick="DeleteFile({{$ex->id}})"><i class="fas fa-trash"></i></button>
                                 </td>
                                 @endif
+                              </tr>
                                 @endforeach
 
-                              </tr>
+                           
 
 
 

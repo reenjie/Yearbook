@@ -96,6 +96,8 @@ Route::post('savefpage', 'App\Http\Controllers\FrontpageController@savefpage')->
 
 Route::post('SaveEditFPage','App\Http\Controllers\FrontpageController@SaveEditFPage')->name('SaveEditFPage');
 
+Route::post('Importcsv','App\Http\Controllers\FrontpageController@importcsv')->name('importcsv');
+
 Route::get('deletePages', 'App\Http\Controllers\FrontpageController@deletePages')->name('deletePages');
 
 

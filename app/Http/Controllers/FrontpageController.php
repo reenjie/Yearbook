@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Frontpage;
 use App\Models\photos;
+use App\Models\Student;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -173,5 +174,64 @@ class FrontpageController extends Controller
             }
         }
         return redirect()->back()->with('success', 'Page Deleted successfully!');
+    }
+
+    public function importcsv(Request $request){
+       $csv = $request->csvfile;
+       $batch = $request->batch;
+       $section = $request->section;
+
+      
+       
+
+       $srcfile = public_path('excel').'/'.$csv;
+       $header = null;
+       $data = array();
+
+       if(file_exists($srcfile)){
+
+        if(($handle= fopen($srcfile,'r')) !==false){
+            while(($row= fgetcsv($handle,1000)) !==false){
+                if(!$header){
+                    $header = $row;
+                }else{
+                    $data[]=array_combine($header,$row);
+                }
+            }
+
+        }
+        fclose($handle);
+      
+
+        foreach($data as $row){
+            if (array_key_exists('studentid', $row) && array_key_exists('firstname', $row) && array_key_exists('middlename', $row) && array_key_exists('lastname', $row)  && array_key_exists('sex', $row) && array_key_exists('birthdate', $row) && array_key_exists('address', $row) && array_key_exists('honors', $row)) {
+                Student::where('BatchID',$batch)->where('SectionID',$section)->delete();
+            Student::create([
+                'studentid'=>$row['studentid'],
+                'Firstname'=>$row['firstname'],
+                'Middlename'=>$row['middlename'],
+                'Lastname'=>$row['lastname'],
+                'Sex'=>$row['sex'],
+                'Birthdate'=>$row['birthdate'],
+                'Address'=>$row['address'],
+                'Honors'=>$row['honors'],
+                'SectionID'=>$section,
+                'BatchID'=>$batch,
+                'photo'=>null,
+                'download'=>3,
+                'diploma'=>0,
+            ]);
+            }else{
+                return redirect()->back()->with('error','Theres an error in importing file. File format does not meet the requirements . If you are reading this. please notify the admin.');
+            }
+          
+        }
+       
+
+       return redirect()->back()->with('success','File Imported Successfully!');
+       }else{
+       return redirect()->back()->with('error','Theres an error in importing file.');
+       }
+      
     }
 }

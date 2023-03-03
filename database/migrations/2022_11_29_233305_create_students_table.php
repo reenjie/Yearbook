@@ -25,7 +25,7 @@ return new class extends Migration
             $table->text("Honors")->nullable();
             $table->integer('SectionID');
             $table->integer('BatchID');
-            $table->text('photo');
+            $table->text('photo')->nullable();
             $table->integer('download');
             $table->integer('diploma');
             $table->timestamps();

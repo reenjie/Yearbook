@@ -11,10 +11,111 @@
   </div>
   <div class="content">
     <div class="row">
-
+      @php
+           $excel = DB::select("SELECT * FROM `excels` where typeof ='listfile'");
+           $batcheswexcel = DB::select("SELECT * FROM `batches` where id in (select batch from excels where typeof='listfile')");
+      @endphp
     <div class="card">
         <div class="card-body">
-          <button class="btn btn-primary btn-sm">Import File <i class="fas fa-save"></i></button>
+          <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#ExcelFiles">Import File <i class="fas fa-save"></i></button>
+
+          <div class="modal fade" id="ExcelFiles" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h6 class="modal-title" id="exampleModalLabel">LIST OF STUDENTS ( <span style="font-size: 10px;">CSV File</span>)</h6>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+
+                <div class="modal-body">
+                  <h6 class="text-danger">Please be aware that importing a CSV file will overwrite all data currently stored for the corresponding batch and section.</h6>
+                  <table class="table">
+                    <thead>
+                      <tr>
+
+                        <th scope="col">File</th>
+                        <th scope="col">Action</th>
+
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @foreach($batcheswexcel as $row)
+                      <tr class="table-danger">
+                        <th colspan="3" style="text-align:center">Batch {{$row->Year}} - {{$row->Year + 1}}</th>
+                      </tr>
+                     
+                        @foreach($excel as $ex)
+                        <tr>
+                        @if($ex->batch == $row->id)
+                        <td class="text-primary">
+                          {{$ex->file}}
+                        </td>
+                        <td>
+                        <form action="{{route('importcsv')}}" method="post" enctype="multipart/form-data">
+                          @csrf
+
+                          <input type="hidden" value="{{$ex->file}}" name="csvfile">
+                          <input type="hidden" name="batch" value="{{$ex->batch}}">
+                          <select name="section" id="" required class="form-control mb-2">
+                            @php
+                                $section = DB::select('select * from sections');
+                            @endphp
+                            <option value="">Select Section *</option>
+                            @foreach ($section as $item)
+                            <option value="{{$item->id}}">{{$item->Name}}</option>
+                                
+                            @endforeach
+                          </select>
+                        
+                          <button type="submit" class="btn btn-sm btn-primary download" data-file="{{$ex->file}}"  data-batch="{{$ex->batch}}"  data-toggle="modal">Use</button>
+
+                     
+                        </form>
+                          
+                        
+                        </td>
+                        @endif
+                      </tr>
+                        @endforeach
+
+                      
+
+
+
+
+                      @endforeach
+                    </tbody>
+                  </table>
+
+
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+          @if(session()->has('success'))
+          <div class="alert alert-success alert-dismissible fade show">
+            {{session()->get('success')}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          @endif
+          @if(session()->has('error'))
+          <div class="alert alert-danger alert-dismissible fade show">
+            {{session()->get('error')}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          @endif
           <div class="table-responsive">
             <table class="table" style="color:gray">
               <thead class=" text-primary">
@@ -96,5 +197,13 @@
     </div>
     </div>
   </div>
+
+  <script>
+    $('.download').click(function(){
+      var file = $(this).data('file');
+      var batch = $(this).data('batch');
+    
+    })
+  </script>
  
 @endsection

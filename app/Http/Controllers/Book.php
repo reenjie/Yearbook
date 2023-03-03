@@ -149,31 +149,10 @@ class Book extends Controller
              
                 ' . $row->Firstname . ' ' . $row->Middlename . ' ' . $row->Lastname . '
                 </h6>
-                <hr>
-                <span style="font-size: 12px">
-               <span style="font-size:11px">Birthdate</span>  : ' . date("F j, Y", strtotime($row->Birthdate)) . '
-                <br>
-                <span style="font-size:11px"> Address </span> : ' . $row->Address . '
+                </div>
+        ';
 
           
-                <br>';
-            if ($row->Honors) {
-?>
-                <span style="font-size:11px"> Honors </span> :
-                <br>
-                <textarea readonly style="border: none;outline:none;-moz-user-select: none;
-              -webkit-user-select: none;
-              -ms-user-select: none;
-              user-select: none;
-              background-color:transparent;resize:none;cursor:default"><?php echo $row->Honors ?></textarea>
-                </span>
-            <?php
-            }
-
-
-            echo '
-                </div>
-               ';
 
             ?>
             <div class="card-footer">

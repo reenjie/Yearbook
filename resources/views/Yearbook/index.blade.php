@@ -16,6 +16,84 @@
     <div class="col-md-6">
       <div class="card bg-light p-3 shadow-lg">
         <div class="card-body">
+        
+          <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#ExcelFiles"><i class="fas fa-list"></i> YearBooks ( <span style="font-size: 10px;">PDF File</span>)</button>
+
+         
+          
+
+          @php
+          $excel = DB::select("SELECT * FROM `excels` where typeof ='yearbookfile' ");
+
+          $batches = DB::select("SELECT * FROM `batches`");
+
+          $batcheswexcel = DB::select("SELECT * FROM `batches` where id in (select batch from excels where typeof ='yearbookfile')");
+          @endphp
+
+          <div class="modal fade" id="ExcelFiles" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h6 class="modal-title" id="exampleModalLabel">Yearbook  ( <span style="font-size: 10px;">PDF FILE</span>)</h6>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+
+                <div class="modal-body">
+
+                  <table class="table">
+                    <thead>
+                      <tr>
+
+                        <th scope="col">File</th>
+                        <th scope="col">Action</th>
+
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @foreach($batcheswexcel as $row)
+                      <tr class="table-danger">
+                        <th colspan="3" style="text-align:center">Batch {{$row->Year}} - {{$row->Year + 1}}</th>
+                      </tr>
+                     
+                        @foreach($excel as $ex)
+                        <tr>
+                        @if($ex->batch == $row->id)
+                        <td class="text-primary">
+                          {{$ex->file}}
+                        </td>
+                        <td>
+                          <button onclick="window.location.href='{{asset('excel').'/'.$ex->file}}' " class="btn btn-sm btn-primary download" data-file="{{$ex->file}}"><i class="fas fa-download"></i></button>
+
+                        
+                        </td>
+                        @endif
+                      </tr>
+                        @endforeach
+
+                   
+
+
+
+
+                      @endforeach
+                    </tbody>
+                  </table>
+
+
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+
+
           <h6>View</h6>
           <select class="form-control" name="" id="selectbatch">
             @foreach ($otherbatch as $bs)
@@ -150,6 +228,51 @@
             </div>
           </div>
 
+          @php
+              $front = DB::select('SELECT * FROM `frontpages` where pagetype=0 ');
+              $back = DB::select('SELECT * FROM `frontpages` where pagetype=1 ');
+          @endphp
+
+          @foreach ($front as $row)
+          <div class="card shadow">
+            <div class="card-body">
+            
+
+                <h6>{{$row->title}}</h6>
+                @if($row->file == '0x')
+
+                <div class="p-3">
+                    @foreach($photos as $src)
+                    @if($src->frontpageID == $row->id)
+                    <img src="{{asset('photos').'/'.$src->file}}" alt="" style="width:300px;height:300px" />
+                    @endif
+                    @endforeach
+
+                </div>
+
+
+                @else
+                <div class="p-3" style="text-align:center">
+                    <img src="{{asset('photos').'/'.$row->file}}" alt="" style="width:300px;height:300px" />
+                    <br>
+                    <span style="font-weight:bold;">{{$row->otherinfo}}</span>
+                </div>
+
+
+                @endif
+                @if($row->message)
+                <div class="p-5">
+                    <textarea name="" id="" cols="30" rows="50" style="width:100%;outline:none;border:none;resize:none;height:auto;max-height: 500px;
+"> {{$row->message}}</textarea>
+                </div>
+                @endif
+
+
+
+            </div>
+        </div>  
+          @endforeach
+
           @foreach ($section as $item)
 
 
@@ -169,7 +292,7 @@
                 @foreach ($student as $row)
                 @if($item->id == $row->SectionID)
                 <div class="d-flex align-items-stretch">
-                  <div class=" mb-2 ml-2" style="border-radius:350px;background-color:rgba(244, 248, 255, 0.527)">
+                  <div class=" mb-2 ml-2" style="border-radius:10px;background-color:rgba(244, 248, 255, 0.527)">
 
                     <div class="card-body">
                       <h6 style="text-align: center">
@@ -178,7 +301,7 @@
                       <h6 style="font-weight: bold;text-align:center;font-size:12px">
                         {{$row->Firstname.' '.$row->Middlename.' '.$row->Lastname}}
                       </h6>
-                      <div style="padding:5px;width:200px;text-align:center">
+                      {{-- <div style="padding:5px;width:200px;text-align:center">
 
                         <span style="font-size: 12px;font-weight:Bold ">
                           <span style="font-size:11px">Birthdate</span> : {{date("F j, Y",strtotime($row->Birthdate))}}
@@ -199,7 +322,7 @@
                         </span>
 
 
-                      </div>
+                      </div> --}}
 
 
                     </div>
@@ -220,6 +343,52 @@
             </div>
           </div>
 
+          @endforeach
+
+          @foreach ($back as $row)
+          <div class="card shadow">
+            <div class="card-body">
+            
+
+                <h6>{{$row->title}}</h6>
+                @if($row->file == '0x')
+
+                <div class="p-3">
+                    @foreach($photos as $src)
+                    @if($src->frontpageID == $row->id)
+                    <img src="{{asset('photos').'/'.$src->file}}" alt="" style="width:300px;height:300px" />
+                    @endif
+                    @endforeach
+
+                </div>
+
+
+                @else
+                @isset($row->file) 
+
+                           
+                <div class="p-3" style="text-align:center">
+                    <img src="{{asset('photos').'/'.$row->file}}" alt="" style="width:300px;height:300px" />
+                    <br>
+                    <span style="font-weight:bold;">{{$row->otherinfo}}</span>
+                </div>
+                @endisset
+
+
+
+
+                @endif
+                @if($row->message)
+                <div class="p-5">
+                    <textarea name="" id="" cols="30" rows="50" style="width:100%;outline:none;border:none;resize:none;height:auto;max-height: 500px;
+"> {{$row->message}}</textarea>
+                </div>
+                @endif
+
+
+
+            </div>
+        </div>  
           @endforeach
 
         </div>
