@@ -16,14 +16,14 @@ class Book extends Controller
         $batch = Batch::all();
         $section = Section::all();
         $student = Student::all();
-        return view('book.index', compact('batch', 'section', 'student'));
+        return view('Book.index', compact('batch', 'section', 'student'));
     }
 
     public function StoreStudent()
     {
         $batch = Batch::all();
         $section = Section::all();
-        return view('book.Addstudent', compact('batch', 'section'));
+        return view('Book.Addstudent', compact('batch', 'section'));
     }
 
     public function store(Request $request)
