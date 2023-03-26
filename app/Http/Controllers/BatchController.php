@@ -150,7 +150,7 @@ class BatchController extends Controller
       }else {
            $path = public_path('/excel/').$filename;
       }
-    echo $path;
+  
 
     if (!file_exists($path)) {
         abort(404);
