@@ -24,7 +24,7 @@
           <button class="btn btn-secondary" data-toggle="modal" data-target="#ExcelFiles"><i class="fas fa-list"></i> List ( <span style="font-size: 10px;">CSV File</span>)</button>
 
 
-          <button class="btn btn-primary" onclick="window.location.href='{{asset('excel').'/template/csvtemplate_yearbook.csv'}}' " ><i class="fas fa-download"></i> Download CSV Template ( <span style="font-size: 10px;">CSV File</span>)</button>
+          <button class="btn btn-primary" onclick="window.location.href='{{route('downloadtemplate',['filename'=>'csvtemplate_yearbook.csv','template'=>true])}}' " ><i class="fas fa-download"></i> Download CSV Template ( <span style="font-size: 10px;">CSV File</span>)</button>
           @endif
 
           @php
@@ -240,7 +240,8 @@
 <script>
   $('.download').click(function() {
     var file = $(this).data('file');
-    window.location.href = '{{asset("excel")}}/' + file;
+    
+    window.location.href = "{{route('downloadtemplate')}}?filename="+file+"&template=0";
   })
 
   function DeleteFile(id) {
