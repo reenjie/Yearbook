@@ -142,4 +142,29 @@ class BatchController extends Controller
             return redirect()->back()->with('alert', 'File deleted Successfully!');
         }
     }
+    
+    public function download(Request $request){
+       $filename = $request->filename;
+      if($request->template){
+             $path = public_path('../excel/template/').$filename;
+      }else {
+           $path = public_path('/excel/').$filename;
+      }
+    echo $path;
+
+    if (!file_exists($path)) {
+        abort(404);
+    }
+$headers = [
+        'Content-Type' => 'application/octet-stream',
+        'Content-Description' => 'File Transfer',
+        'Content-Disposition' => 'attachment; filename="'.$filename.'"',
+        'Content-Length' =>filesize($path),
+        'Cache-Control' => 'private, max-age=0, must-revalidate',
+        'Pragma' => 'public',
+    ];
+
+    
+    return response()->download($path, $filename, $headers);
+    }
 }
