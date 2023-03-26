@@ -54,6 +54,7 @@ Route::get('/Delete/User', 'App\Http\Controllers\UserController@destroy')->name(
 
 //batch
 Route::get('/Batch', 'App\Http\Controllers\BatchController@index')->name('batch');
+Route::get('download', 'App\Http\Controllers\BatchController@download')->name('downloadtemplate');
 
 Route::post('/Add/Batch', 'App\Http\Controllers\BatchController@store')->name('addbatch');
 
