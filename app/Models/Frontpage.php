@@ -15,6 +15,8 @@ class Frontpage extends Model
         'message',
         'otherinfo',
         'arrangement',
-        'pagetype'
+        'pagetype',
+        'batch'
+
     ];
 }

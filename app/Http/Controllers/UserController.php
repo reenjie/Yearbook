@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Student;
 use App\Models\Section;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Hash;
@@ -112,6 +113,62 @@ class UserController extends Controller
       $id = $request->id;
       User::findorFail($id)->delete();
       return redirect()->route('users')->with('alert','User Deleted Successfully!');
+
+    }
+
+    public function registerUsers(Request $request){
+     $StudentID = $request->StudentID;
+     $Firstname = $request->Firstname;
+     $Middlename = $request->Middlename;
+     $Lastname  = $request->Lastname;
+     $Sex = $request->Sex;
+     $Batch = $request->Batch;
+     $Section = $request->Section;
+     $email = $request->email;
+     $password = $request->password;
+     $password_confirmation = $request->password_confirmation;
+  
+     $request->validate([
+      'password' => 'required|min:8|confirmed',
+      'password_confirmation' => 'required'
+  ]);
+
+      $validate = Student::where('studentid',$StudentID)->get();
+
+      if(count($validate)>=1){
+      $save =  User::create([
+        'Firstname'=>$Firstname,
+        'Middlename'=>$Middlename,
+        'Lastname'=>$Lastname,
+        'Sex'=>$Sex,
+        'Role'=>2,
+        'SectionID'=>$Section,
+        'BatchID' =>$Batch,
+        'StudentID'=>$StudentID,
+        'printcount'=>3,
+        'vrfy'=>0,
+        'status'=>0,
+        'dstatus'=>0,
+        'email' =>$email,
+        'password'=>Hash::make($password),
+       ]);
+
+       if($save){
+        $credentials = [
+          'email' => $email,
+          'password'=>$password
+        ];
+
+        if(Auth::attempt($credentials)){
+          return redirect()->route('home');
+        }
+
+
+       }
+
+      }else {
+        return redirect()->back()->with('error','We could not process your registration.  It looks like . your student ID does not match any of our records');
+      }
 
     }
 }

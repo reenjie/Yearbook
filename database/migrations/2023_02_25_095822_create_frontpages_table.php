@@ -21,6 +21,7 @@ return new class extends Migration
             $table->text('otherinfo')->nullable();
             $table->integer('arrangement');
             $table->integer('pagetype')->comment('0 = front , 1 = back');
+            $table->integer('batch');
             $table->timestamps();
         });
     }

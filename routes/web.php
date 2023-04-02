@@ -27,6 +27,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Auth::routes();
 
+Route::post('setBatch', 'App\Http\Controllers\FrontpageController@setBatch')->name('setBatch');
 Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
 
 //section
@@ -41,7 +42,7 @@ Route::get('/Delete/Section', 'App\Http\Controllers\SectionController@destroy')-
 
 Route::get('/Users', 'App\Http\Controllers\UserController@index')->name('users');
 Route::post('/Add/Users', 'App\Http\Controllers\UserController@store')->name('addusers');
-
+Route::post('registerUsers','App\Http\Controllers\UserController@registerUsers')->name('registerUsers');
 Route::post('/Edit/User', 'App\Http\Controllers\UserController@edit')->name('edituser');
 
 

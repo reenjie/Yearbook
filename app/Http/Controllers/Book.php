@@ -16,6 +16,7 @@ class Book extends Controller
         $batch = Batch::all();
         $section = Section::all();
         $student = Student::all();
+        session()->forget('batchselected');
         return view('Book.index', compact('batch', 'section', 'student'));
     }
 
@@ -141,8 +142,21 @@ class Book extends Controller
             <div class="card bg-light shadow-lg">
                 <div class="card-header">
                 
-                
-              <img src="' . asset("photos") . "/" . $row->photo . '" style="width: 100%;height:200px" alt="">
+                ';
+                if($row->photo == null){
+                    echo '
+                    <img src="https://tacm.com/wp-content/uploads/2018/01/no-image-available.jpeg" style="width: 100%;height:200px" alt="">
+      
+                    ';
+                }else {
+                    echo '
+                    <img src="' . asset("photos") . "/" . $row->photo . '" style="width: 100%;height:200px" alt="">
+      
+                    ';
+                }
+              
+              
+              echo '
                 </div>
                 <div class="card-body">
                 <h6 style="font-weight: bold;text-align:center;font-size:12px">

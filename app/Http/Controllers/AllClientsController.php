@@ -12,9 +12,12 @@ use Illuminate\Support\Facades\DB;
 class AllClientsController extends Controller
 {
     public function yearbook(){
+    
             $studID = Auth::user()->StudentID;
-            $wb = Student::where('id',$studID)->get();
-            $section = DB::select('select * from sections where id in (select SectionID from students where BatchID ='.$wb[0]['BatchID'].')');
+             $wb = Student::where('studentid',$studID)->get();
+             
+            
+           $section = DB::select('select * from sections where id in (select SectionID from students where BatchID ='.$wb[0]['BatchID'].')');
             $user = User::where('Role',1)->get();
             $student = Student::where('BatchID',$wb[0]['BatchID'])->get();
 

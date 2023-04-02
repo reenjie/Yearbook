@@ -145,11 +145,17 @@ class BatchController extends Controller
     
     public function download(Request $request){
        $filename = $request->filename;
-      if($request->template){
-             $path = public_path('../excel/template/').$filename;
-      }else {
-           $path = public_path('/excel/').$filename;
-      }
+    //   if($request->template){
+    //          $path = public_path('../excel/template/').$filename;
+    //   }else {
+    //        $path = public_path('/excel/').$filename;
+    //   }
+
+    if($request->template){
+                 $path = public_path('excel/template/').$filename;
+          }else {
+               $path = public_path('excel/').$filename;
+     }
   
 
     if (!file_exists($path)) {

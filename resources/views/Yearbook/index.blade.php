@@ -193,7 +193,7 @@
 
         @isset($otherbatch)
 
-        <button target="_blank" style="position: fixed;right:10px;top:50px;z-index:9999;background-color:white;border:2px solid orange" class="btn btn-link shadow-lg" style="float: right" id="download" data-status="{{Auth::user()->status}}">PRINT <i class="fas fa-download"></i></button>
+        <button target="_blank" style="position: fixed;right:10px;top:50px;z-index:6;background-color:white;border:2px solid orange" class="btn btn-link shadow-lg" style="float: right" id="download" data-status="{{Auth::user()->status}}">PRINT <i class="fas fa-download"></i></button>
         @endisset
         @endif
         <h5>You have <span id="chances"></span> Downloads Remaining..</h5>
@@ -215,7 +215,13 @@
               background-repeat: no-repeat;
               background-position: center;
               background-size: cover;
+         
+            width: 100%;
+          height: 100vh;
+            }
 
+            .printcardheight {
+              height: 100vh;
             }
           </style>
 
@@ -234,7 +240,7 @@
           @endphp
 
           @foreach ($front as $row)
-          <div class="card shadow">
+          <div class="card " >
             <div class="card-body">
             
 
@@ -271,12 +277,13 @@
 
             </div>
         </div>  
+        <div style="page-break-before: always;"></div>
           @endforeach
 
           @foreach ($section as $item)
 
 
-          <div class="card mb-2  bgyearbook">
+          <div class="card mb-2 printcardheight  bgyearbook">
             <div class="card-body p-5">
               <h5 style="font-weight: bold;text-transform:uppercase"> {{$item->Name}}</h5>
               <h6 style="font-size: 11px;font-weight:normal">Instructor</h6>
@@ -296,7 +303,12 @@
 
                     <div class="card-body">
                       <h6 style="text-align: center">
+                        @if($row->photo == null)
+                        <img src="https://tacm.com/wp-content/uploads/2018/01/no-image-available.jpeg" style="width: 80px;height:80px; border-radius: 360px;" class=" mb-2" alt="">
+                        @else 
                         <img src="{{asset('photos').'/'.$row->photo}}" style="width: 80px;height:80px; border-radius: 360px;" class=" mb-2" alt="">
+                        @endif
+                    
                       </h6>
                       <h6 style="font-weight: bold;text-align:center;font-size:12px">
                         {{$row->Firstname.' '.$row->Middlename.' '.$row->Lastname}}
@@ -344,9 +356,10 @@
           </div>
 
           @endforeach
+          <div style="page-break-before: always;"></div>
 
           @foreach ($back as $row)
-          <div class="card shadow">
+          <div class="card printcardheight">
             <div class="card-body">
             
 
@@ -389,6 +402,7 @@
 
             </div>
         </div>  
+        <div style="page-break-before: always;"></div>
           @endforeach
 
         </div>

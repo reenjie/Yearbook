@@ -36,7 +36,8 @@ class FrontpageController extends Controller
                         'message' => $message,
                         'otherinfo' => $otherinfo,
                         'arrangement' => $count,
-                        'pagetype' => $pagetype
+                        'pagetype' => $pagetype,
+                        'batch' =>session()->get('batchselected')
                     ]);
                 foreach ($attachfile as $key => $file) {
 
@@ -59,7 +60,8 @@ class FrontpageController extends Controller
                 'message' => $message,
                 'otherinfo' => $otherinfo,
                 'arrangement' => $count,
-                'pagetype' => $pagetype
+                'pagetype' => $pagetype,
+                'batch' =>session()->get('batchselected')
             ]);
         }
 
@@ -202,25 +204,27 @@ class FrontpageController extends Controller
         }
         fclose($handle);
       
-
-        foreach($data as $row){
+        Student::where('BatchID',$batch)->where('SectionID',$section)->delete();
+        foreach($data as $key => $row){
+        
             if (array_key_exists('studentid', $row) && array_key_exists('firstname', $row) && array_key_exists('middlename', $row) && array_key_exists('lastname', $row)  && array_key_exists('sex', $row) && array_key_exists('birthdate', $row) && array_key_exists('address', $row) && array_key_exists('honors', $row)) {
-                Student::where('BatchID',$batch)->where('SectionID',$section)->delete();
-            Student::create([
-                'studentid'=>$row['studentid'],
-                'Firstname'=>$row['firstname'],
-                'Middlename'=>$row['middlename'],
-                'Lastname'=>$row['lastname'],
-                'Sex'=>$row['sex'],
-                'Birthdate'=>$row['birthdate'],
-                'Address'=>$row['address'],
-                'Honors'=>$row['honors'],
-                'SectionID'=>$section,
-                'BatchID'=>$batch,
-                'photo'=>null,
-                'download'=>3,
-                'diploma'=>0,
-            ]);
+      
+           Student::create([
+            'studentid'=>$row['studentid'],
+            'Firstname'=>$row['firstname'],
+            'Middlename'=>$row['middlename'],
+            'Lastname'=>$row['lastname'],
+            'Sex'=>$row['sex'],
+            'Birthdate'=>$row['birthdate'],
+            'Address'=>$row['address'],
+            'Honors'=>$row['honors'],
+            'SectionID'=>$section,
+            'BatchID'=>$batch,
+            'photo'=>null,
+            'download'=>3,
+            'diploma'=>0,
+        ]);
+             
             }else{
                 return redirect()->back()->with('error','Theres an error in importing file. File format does not meet the requirements . If you are reading this. please notify the admin.');
             }
@@ -228,10 +232,15 @@ class FrontpageController extends Controller
         }
        
 
-       return redirect()->back()->with('success','File Imported Successfully!');
+      //
        }else{
        return redirect()->back()->with('error','Theres an error in importing file.');
        }
-      
+       return redirect()->back()->with('success','File Imported Successfully!');
+    }
+
+    public function setBatch(Request $request){
+        session()->put('batchselected',$request->Batch);
+        return redirect()->back();
     }
 }

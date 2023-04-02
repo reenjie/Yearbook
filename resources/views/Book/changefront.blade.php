@@ -13,8 +13,12 @@
     <div class="card" style="background-color: #F9F5E7;">
         <div class="card-body">
             <button onclick="window.location.href='{{route('books')}}' " class="btn btn-link btn-sm text-primary">Back</button>
+            @if(session()->has('batchselected'))
+            @php
+                $fbatch = DB::select('SELECT * FROM `batches` where id ='.session()->get('batchselected').' ');
+            @endphp
             <h4>
-                Manage Front Covers
+                Manage Front Covers | <span style="font-size:13px">Batch</span> {{$fbatch[0]->Name}}
             </h4>
 
             <!-- Button trigger modal -->
@@ -27,7 +31,7 @@
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Add Front Cover</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Add Front Cover </h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -37,8 +41,7 @@
                             @csrf
 
                             <div class="modal-body">
-
-
+                                
                                 <h6>
                                     Title
                                 </h6>
@@ -62,6 +65,8 @@
                                     Message
                                 </h6>
                                 <textarea name="message" class="form-control" id="" cols="30" rows="10"></textarea>
+
+                            
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -83,9 +88,8 @@
             </div>
             @endif
 
-
             @php
-            $frontpages = DB::Select('SELECT * FROM `frontpages` where pagetype=0');
+            $frontpages = DB::Select('SELECT * FROM `frontpages` where pagetype=0 and batch ='.session()->get('batchselected').' ');
 
             $photos = DB::Select('SELECT * FROM `photos` where frontpageID in (select id from frontpages where pagetype = 0) ');
 
@@ -198,6 +202,25 @@
                 </div>
                 <div class="col-md-1"></div>
             </div>
+            @else 
+            <form action="{{route('setBatch')}}" method="post">
+                @csrf
+                <h5>Select Batch to Manage | Front Page</h5>
+                @php
+                $batch = DB::select('select * from batches');
+    
+              @endphp
+                <select required name="Batch" id="" class="form-control">
+                  <option value="">Select Batch</option>
+                  @foreach($batch as $b)
+                <option value="{{$b->id}}">{{$b->Name}}</option>
+                  @endforeach
+                </select>
+    
+                <button type="submit" class="btn btn-primary mt-3">Submit</button>
+              </form>
+            @endif
+        
         </div>
     </div>
 </div>

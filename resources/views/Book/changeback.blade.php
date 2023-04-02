@@ -13,6 +13,8 @@
     <div class="card" style="background-color: #F9F5E7;">
         <div class="card-body">
             <button onclick="window.location.href='{{route('books')}}' " class="btn btn-link btn-sm text-primary">Back</button>
+            @if(session()->has('batchselected'))
+          
             <h4>
                 Manage Back Covers
             </h4>
@@ -202,6 +204,26 @@
                 </div>
                 <div class="col-md-1"></div>
             </div>
+            @else
+            <form action="{{route('setBatch')}}" method="post">
+                @csrf
+                <h5>Select Batch to Manage | Back Page</h5>
+                @php
+                $batch = DB::select('select * from batches');
+    
+              @endphp
+                <select required name="Batch" id="" class="form-control">
+                  <option value="">Select Batch</option>
+                  @foreach($batch as $b)
+                <option value="{{$b->id}}">{{$b->Name}}</option>
+                  @endforeach
+                </select>
+    
+                <button type="submit" class="btn btn-primary mt-3">Submit</button>
+              </form>
+            @endif
+
+     
         </div>
     </div>
 </div>

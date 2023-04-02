@@ -31,7 +31,7 @@
               {{session()->get('error')}}
             </div>
               @endif
-              <form method="POST" action="{{ route('register') }}">
+              <form method="POST" action="{{ route('registerUsers') }}">
                 @csrf
                 <!--Begin input name -->
 
