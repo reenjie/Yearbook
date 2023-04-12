@@ -170,7 +170,7 @@
                             <div class="p-3">
                                 @foreach($photos as $src)
                                 @if($src->frontpageID == $row->id)
-                                <img src="{{asset('photos').'/'.$src->file}}" alt="" style="width:300px;height:300px" />
+                                <img src="{{asset('public/photos').'/'.$src->file}}" alt="" style="width:300px;height:300px" />
                                 @endif
                                 @endforeach
 
@@ -179,7 +179,7 @@
 
                             @else
                             <div class="p-3" style="text-align:center">
-                                <img src="{{asset('photos').'/'.$row->file}}" alt="" style="width:300px;height:300px" />
+                                <img src="{{asset('public/photos').'/'.$row->file}}" alt="" style="width:300px;height:300px" />
                                 <br>
                                 <span style="font-weight:bold;">{{$row->otherinfo}}</span>
                             </div>

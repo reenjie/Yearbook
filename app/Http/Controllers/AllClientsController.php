@@ -28,7 +28,7 @@ class AllClientsController extends Controller
          if($bg == null){
             $batchbg = 'https://img.freepik.com/free-vector/graduation-greeting-card_53876-89341.jpg?w=740&t=st=1670294908~exp=1670295508~hmac=6c5367105b93ffc370a6892b37d896d56e197c259ca13639505361ca43d33aaa';
          }else {
-            $batchbg = asset('photos').'/'.$bg;
+            $batchbg = asset('public/photos').'/'.$bg;
          }
           
          $otherbatch = DB::select('select * from batches where id != '.$wb[0]['BatchID'].' ');
@@ -48,7 +48,7 @@ class AllClientsController extends Controller
     if($bg == null){
        $batchbg = 'https://img.freepik.com/free-vector/graduation-greeting-card_53876-89341.jpg?w=740&t=st=1670294908~exp=1670295508~hmac=6c5367105b93ffc370a6892b37d896d56e197c259ca13639505361ca43d33aaa';
     }else {
-       $batchbg = asset('photos').'/'.$bg;
+       $batchbg = asset('public/photos').'/'.$bg;
     }
      
  

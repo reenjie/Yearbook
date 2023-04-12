@@ -18,7 +18,7 @@
     <div class="card">
         <div class="card-body">
           <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#ExcelFiles">Import File <i class="fas fa-save"></i></button>
-
+          
           <div class="modal fade" id="ExcelFiles" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
               <div class="modal-content">
@@ -58,6 +58,7 @@
 
                           <input type="hidden" value="{{$ex->file}}" name="csvfile">
                           <input type="hidden" name="batch" value="{{$ex->batch}}">
+                          @if(Auth::user()->Role != 1)
                           <select name="section" id="" required class="form-control mb-2">
                             @php
                                 $section = DB::select('select * from sections');
@@ -68,6 +69,10 @@
                                 
                             @endforeach
                           </select>
+                          @else 
+                           <input type="hidden" name="section" value="{{Auth::user()->SectionID}}">
+                          
+                          @endif
                         
                           <button type="submit" class="btn btn-sm btn-primary download" data-file="{{$ex->file}}"  data-batch="{{$ex->batch}}"  data-toggle="modal">Use</button>
 

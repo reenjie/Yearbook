@@ -37,7 +37,7 @@
                                 <br>
                                 <span style="color:grey">Default</span>
                                 @else 
-                                <img src="{{asset('photos').'/'.$item->bg}}" width="200px" height="200px" alt="">
+                                <img src="{{asset('public/photos').'/'.$item->bg}}" width="200px" height="200px" alt="">
                                 @endif
                                
                             </td>

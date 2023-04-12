@@ -113,7 +113,7 @@ class BatchController extends Controller
         $file  = $request->file('excellfile');
         $typeof = $request->typeof;
 
-        $file->move(public_path('excel'),  $file->getClientOriginalName());
+        $file->move(public_path('public/excel'),  $file->getClientOriginalName());
 
         $save = Excel::create([
             'file' => $file->getClientOriginalName(),
@@ -132,7 +132,7 @@ class BatchController extends Controller
 
         $ex = Excel::findorFail($id);
 
-        $filename = public_path('excel') . '/' . $ex->file;
+        $filename = public_path('public/excel') . '/' . $ex->file;
 
         if (file_exists($filename)) {
             unlink($filename);
@@ -154,7 +154,7 @@ class BatchController extends Controller
     if($request->template){
                  $path = public_path('excel/template/').$filename;
           }else {
-               $path = public_path('excel/').$filename;
+               $path = public_path('public/excel/').$filename;
      }
   
 

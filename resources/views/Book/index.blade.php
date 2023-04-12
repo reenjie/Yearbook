@@ -123,7 +123,7 @@
                         <form action="{{route('addexcelfile')}}" method="post" enctype="multipart/form-data">
                           @csrf
                           <div class="modal-body">
-                            <h6 class="mt-2 mb-2">Select Excel File</h6>
+                            <h6 class="mt-2 mb-2">Select  File</h6>
                             <input type="file" name="excellfile" required accept="application/pdf" class="form-control" />
 
                             <h6 class="mt-2">Select Batch</h6>

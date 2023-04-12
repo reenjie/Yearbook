@@ -235,8 +235,8 @@
           </div>
 
           @php
-              $front = DB::select('SELECT * FROM `frontpages` where pagetype=0 ');
-              $back = DB::select('SELECT * FROM `frontpages` where pagetype=1 ');
+              $front = DB::select('SELECT * FROM `frontpages` where pagetype=0 and batch= '.Auth::user()->BatchID.' ');
+              $back = DB::select('SELECT * FROM `frontpages` where pagetype=1 and batch= '.Auth::user()->BatchID.' ');
           @endphp
 
           @foreach ($front as $row)
@@ -250,7 +250,7 @@
                 <div class="p-3">
                     @foreach($photos as $src)
                     @if($src->frontpageID == $row->id)
-                    <img src="{{asset('photos').'/'.$src->file}}" alt="" style="width:300px;height:300px" />
+                    <img src="{{asset('public/photos').'/'.$src->file}}" alt="" style="width:300px;height:300px" />
                     @endif
                     @endforeach
 
@@ -259,7 +259,7 @@
 
                 @else
                 <div class="p-3" style="text-align:center">
-                    <img src="{{asset('photos').'/'.$row->file}}" alt="" style="width:300px;height:300px" />
+                    <img src="{{asset('public/photos').'/'.$row->file}}" alt="" style="width:300px;height:300px" />
                     <br>
                     <span style="font-weight:bold;">{{$row->otherinfo}}</span>
                 </div>
@@ -306,12 +306,12 @@
                         @if($row->photo == null)
                         <img src="https://tacm.com/wp-content/uploads/2018/01/no-image-available.jpeg" style="width: 80px;height:80px; border-radius: 360px;" class=" mb-2" alt="">
                         @else 
-                        <img src="{{asset('photos').'/'.$row->photo}}" style="width: 80px;height:80px; border-radius: 360px;" class=" mb-2" alt="">
+                        <img src="{{asset('public/photos').'/'.$row->photo}}" style="width: 80px;height:80px; border-radius: 360px;" class=" mb-2" alt="">
                         @endif
                     
                       </h6>
                       <h6 style="font-weight: bold;text-align:center;font-size:12px">
-                        {{$row->Firstname.' '.$row->Middlename.' '.$row->Lastname}}
+                      {{$row->Firstname.' '.substr($row->Middlename, 0, 1).'. '.$row->Lastname}}
                       </h6>
                       {{-- <div style="padding:5px;width:200px;text-align:center">
 
@@ -369,7 +369,7 @@
                 <div class="p-3">
                     @foreach($photos as $src)
                     @if($src->frontpageID == $row->id)
-                    <img src="{{asset('photos').'/'.$src->file}}" alt="" style="width:300px;height:300px" />
+                    <img src="{{asset('public/photos').'/'.$src->file}}" alt="" style="width:300px;height:300px" />
                     @endif
                     @endforeach
 
@@ -381,7 +381,7 @@
 
                            
                 <div class="p-3" style="text-align:center">
-                    <img src="{{asset('photos').'/'.$row->file}}" alt="" style="width:300px;height:300px" />
+                    <img src="{{asset('public/photos').'/'.$row->file}}" alt="" style="width:300px;height:300px" />
                     <br>
                     <span style="font-weight:bold;">{{$row->otherinfo}}</span>
                 </div>

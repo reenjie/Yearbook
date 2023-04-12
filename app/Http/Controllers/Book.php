@@ -150,7 +150,7 @@ class Book extends Controller
                     ';
                 }else {
                     echo '
-                    <img src="' . asset("photos") . "/" . $row->photo . '" style="width: 100%;height:200px" alt="">
+                    <img src="' . asset("public/photos") . "/" . $row->photo . '" style="width: 100%;height:200px" alt="">
       
                     ';
                 }

@@ -182,11 +182,11 @@ class FrontpageController extends Controller
        $csv = $request->csvfile;
        $batch = $request->batch;
        $section = $request->section;
-
+        Student::where('BatchID',$batch)->where('SectionID',$section)->delete();
       
-       
+        
 
-       $srcfile = public_path('excel').'/'.$csv;
+       $srcfile = public_path('public/excel').'/'.$csv;
        $header = null;
        $data = array();
 
@@ -204,12 +204,13 @@ class FrontpageController extends Controller
         }
         fclose($handle);
       
-        Student::where('BatchID',$batch)->where('SectionID',$section)->delete();
+  
         foreach($data as $key => $row){
         
             if (array_key_exists('studentid', $row) && array_key_exists('firstname', $row) && array_key_exists('middlename', $row) && array_key_exists('lastname', $row)  && array_key_exists('sex', $row) && array_key_exists('birthdate', $row) && array_key_exists('address', $row) && array_key_exists('honors', $row)) {
+        
       
-           Student::create([
+         Student::create([
             'studentid'=>$row['studentid'],
             'Firstname'=>$row['firstname'],
             'Middlename'=>$row['middlename'],
@@ -226,7 +227,7 @@ class FrontpageController extends Controller
         ]);
              
             }else{
-                return redirect()->back()->with('error','Theres an error in importing file. File format does not meet the requirements . If you are reading this. please notify the admin.');
+               return redirect()->back()->with('error','Theres an error in importing file. File format does not meet the requirements . If you are reading this. please notify the admin.');
             }
           
         }
@@ -236,7 +237,7 @@ class FrontpageController extends Controller
        }else{
        return redirect()->back()->with('error','Theres an error in importing file.');
        }
-       return redirect()->back()->with('success','File Imported Successfully!');
+     return redirect()->back()->with('success','File Imported Successfully!');
     }
 
     public function setBatch(Request $request){
